@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Digital</title>
     <style>
         /* Contenedor del video */
         #video-overlay {
@@ -23,7 +26,7 @@
 
     <div id="video-overlay">
         <video id="introVideo" playsinline muted>
-            <source src="XVRENATA.mp4" type="video/mp4">
+            <source src="assets/xvrenata.mp4" type="video/mp4">
         </video>
     </div>
 
@@ -40,7 +43,7 @@
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
-            }, 800); // Tiempo de la transición
+            }, 800); 
         }
 
         // Reproducir al tocar (necesario por políticas de navegadores móviles)
@@ -53,7 +56,7 @@
         // Cuando el video termina
         video.onended = ocultarVideo;
 
-        // Opcional: Permitir saltar el video haciendo clic en él
+        // Saltar el video al hacer clic
         video.addEventListener('click', ocultarVideo);
     </script>
 </body>
