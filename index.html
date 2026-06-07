@@ -3,21 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Digital - Mis XV Años</title>
     <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Contenedor del video */
         #video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 9999; background: black;
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease;
         }
+
         #introVideo { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
         
         /* Botón elegante sobre el video */
         #btn-entrar {
             position: absolute; padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1); border: 1px solid white;
+            background: rgba(255, 255, 255, 0.15); 
+            border: 1px solid white;
             color: white; font-family: sans-serif; cursor: pointer;
             z-index: 10000; border-radius: 5px; text-transform: uppercase;
+            backdrop-filter: blur(5px);
+            letter-spacing: 2px;
+            transition: all 0.5s ease;
+        }
+
+        #btn-entrar:hover {
+            background: linear-gradient(135deg, #AEC6CF, #FFD1DC); /* Transición suave a celeste y rosa pastel */
+            border-color: transparent;
+            color: #333;
+        }
+
+        /* Estilo editorial de la invitación principal */
+        #invitacion-principal {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffffff, #FFD1DC); 
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #AEC6CF; 
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #666;
         }
     </style>
 </head>
@@ -26,48 +71,45 @@
     <div id="video-overlay">
         <div id="btn-entrar">Toca para abrir</div>
         <video id="introVideo" playsinline>
-            <source src="xvrenata.mp4" type="video/mp4">
+            <source src="https://invytia.github.io/XV-RENATA/xvrenata.mp4" type="video/mp4">
             Tu navegador no soporta el formato de video.
         </video>
     </div>
 
     <div id="invitacion-principal">
         <h1>Bienvenidos a mis XV Años</h1>
-    </div>
+        <p>Aquí comienza la experiencia interactiva</p>
+        </div>
 
     <script>
         const video = document.getElementById('introVideo');
         const overlay = document.getElementById('video-overlay');
         const btn = document.getElementById('btn-entrar');
 
-        // 1. Detector de errores de carga de archivo
+        // Detector de errores de carga
         video.addEventListener('error', function(e) {
             let errorMsg = e.target.error ? e.target.error.message : "Error desconocido";
             console.error("Error crítico cargando el video:", errorMsg);
-            alert("Fallo al cargar el archivo de video. Revisa la consola de Chrome para ver el error exacto.");
         }, true);
 
-        // 2. Lógica del botón de entrada con detector de errores de reproducción
+        // Lógica del botón de entrada
         btn.addEventListener('click', () => {
-            btn.style.display = 'none'; // Ocultar el botón
+            btn.style.display = 'none'; 
             
-            // Intentar reproducir y atrapar cualquier bloqueo del navegador
             let playPromise = video.play();
             
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    // La reproducción comenzó correctamente
                     console.log("Reproducción iniciada con éxito.");
                 })
                 .catch(error => {
-                    // El navegador bloqueó la reproducción
                     console.error("El navegador bloqueó el video:", error);
-                    alert("El navegador bloqueó la reproducción. Revisa que el formato sea mp4 h.264 válido.");
+                    alert("Por favor, asegúrate de no estar en modo de ahorro de batería extremo.");
                 });
             }
         });
 
-        // 3. Transición al finalizar el video
+        // Transición al finalizar el video
         video.onended = () => {
             overlay.style.opacity = '0';
             setTimeout(() => { overlay.style.display = 'none'; }, 800);
