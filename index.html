@@ -26,7 +26,8 @@
     <div id="video-overlay">
         <div id="btn-entrar">Toca para abrir</div>
         <video id="introVideo" playsinline>
-            <source src="assets/xvrenata.mp4" type="video/mp4">
+            <source src="xvrenata.mp4" type="video/mp4">
+            Tu navegador no soporta el formato de video.
         </video>
     </div>
 
@@ -39,11 +40,34 @@
         const overlay = document.getElementById('video-overlay');
         const btn = document.getElementById('btn-entrar');
 
+        // 1. Detector de errores de carga de archivo
+        video.addEventListener('error', function(e) {
+            let errorMsg = e.target.error ? e.target.error.message : "Error desconocido";
+            console.error("Error crítico cargando el video:", errorMsg);
+            alert("Fallo al cargar el archivo de video. Revisa la consola de Chrome para ver el error exacto.");
+        }, true);
+
+        // 2. Lógica del botón de entrada con detector de errores de reproducción
         btn.addEventListener('click', () => {
             btn.style.display = 'none'; // Ocultar el botón
-            video.play();             // Iniciar el video
+            
+            // Intentar reproducir y atrapar cualquier bloqueo del navegador
+            let playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // La reproducción comenzó correctamente
+                    console.log("Reproducción iniciada con éxito.");
+                })
+                .catch(error => {
+                    // El navegador bloqueó la reproducción
+                    console.error("El navegador bloqueó el video:", error);
+                    alert("El navegador bloqueó la reproducción. Revisa que el formato sea mp4 h.264 válido.");
+                });
+            }
         });
 
+        // 3. Transición al finalizar el video
         video.onended = () => {
             overlay.style.opacity = '0';
             setTimeout(() => { overlay.style.display = 'none'; }, 800);
