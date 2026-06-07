@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+        /* Contenedor del video */
+        #video-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        #introVideo {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-overlay">
+        <video id="introVideo" playsinline muted>
+            <source src="XVRENATA.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="invitacion-principal">
+        <h1>Bienvenidos a mis XV Años</h1>
+        </div>
+
+    <script>
+        const video = document.getElementById('introVideo');
+        const overlay = document.getElementById('video-overlay');
+
+        // Función para ocultar el video
+        function ocultarVideo() {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 800); // Tiempo de la transición
+        }
+
+        // Reproducir al tocar (necesario por políticas de navegadores móviles)
+        document.body.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            }
+        }, { once: true });
+
+        // Cuando el video termina
+        video.onended = ocultarVideo;
+
+        // Opcional: Permitir saltar el video haciendo clic en él
+        video.addEventListener('click', ocultarVideo);
+    </script>
+</body>
+</html>
