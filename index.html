@@ -3,69 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Digital</title>
     <style>
-        /* Contenedor del video */
         #video-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 9999;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999; background: black;
+            display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease;
         }
-
-        #introVideo {
-            width: 100%; height: 100%; object-fit: cover;
+        #introVideo { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+        
+        /* Botón elegante sobre el video */
+        #btn-entrar {
+            position: absolute; padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid white;
+            color: white; font-family: sans-serif; cursor: pointer;
+            z-index: 10000; border-radius: 5px; text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <div id="video-overlay">
-    <div id="play-button" style="position: absolute; color: white; z-index: 1000; cursor: pointer;">
-        Toca para abrir tu invitación
-    </div>
-    <video id="introVideo" playsinline muted>
-        <source src="assets/xvrenata.mp4" type="video/mp4">
-    </video>
-</div>
-    <div id="video-overlay">
-        <video id="introVideo" playsinline muted>
+        <div id="btn-entrar">Toca para abrir</div>
+        <video id="introVideo" playsinline>
             <source src="assets/xvrenata.mp4" type="video/mp4">
         </video>
     </div>
 
     <div id="invitacion-principal">
         <h1>Bienvenidos a mis XV Años</h1>
-        </div>
+    </div>
 
     <script>
         const video = document.getElementById('introVideo');
         const overlay = document.getElementById('video-overlay');
+        const btn = document.getElementById('btn-entrar');
 
-        // Función para ocultar el video
-        function ocultarVideo() {
+        btn.addEventListener('click', () => {
+            btn.style.display = 'none'; // Ocultar el botón
+            video.play();             // Iniciar el video
+        });
+
+        video.onended = () => {
             overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 800); 
-        }
-
-        // Reproducir al tocar (necesario por políticas de navegadores móviles)
-        document.body.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-            }
-        }, { once: true });
-
-        // Cuando el video termina
-        video.onended = ocultarVideo;
-
-        // Saltar el video al hacer clic
-        video.addEventListener('click', ocultarVideo);
+            setTimeout(() => { overlay.style.display = 'none'; }, 800);
+        };
     </script>
 </body>
 </html>
