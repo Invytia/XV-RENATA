@@ -5,219 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación XV Años - Renata</title>
     
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibe&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fuentes ultra elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Bloqueamos el scroll para la portada */
+        /* ----- RESET Y CONFIGURACIÓN BÁSICA ----- */
         body, html {
-            overflow: hidden; 
-            margin: 0;
-            padding: 0;
-            font-family: 'Playfair Display', serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden; 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAFAFA; /* Fondo base claro y elegante */
+            color: #4A4A4A;
         }
 
-        /* Capa superior que contiene portada y video */
+        /* ----- OVERLAY DEL VIDEO INTRO ----- */
+        body.intro-active { overflow: hidden; } /* Bloquea scroll solo al inicio */
+
         #video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 9999; background: black;
             transition: opacity 0.8s ease;
         }
 
-        /* Imagen de intro */
         #intro-pantalla {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2;
-            background-color: #ffffff; 
+            z-index: 2; background-color: #ffffff; 
             transition: opacity 0.8s ease;
             display: flex; justify-content: center; align-items: center;
         }
-
-        #intro-pantalla img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
+        #intro-pantalla img { width: 100%; height: 100%; object-fit: cover; }
 
         #intro-action-area {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 15%; 
-            background-color: transparent;
-            cursor: pointer;
-            z-index: 3;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60%; height: 15%; background-color: transparent;
+            cursor: pointer; z-index: 3;
         }
 
         #introVideo { 
             position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; object-fit: cover; 
-            z-index: 1;
+            width: 100%; height: 100%; object-fit: cover; z-index: 1;
         }
 
-        /* ----- ESTILOS PERSONALIZADOS NUEVOS ----- */
+        /* ----- ESTRUCTURA PRINCIPAL ----- */
         .invitation-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-            background: #fdfbf7;
+            max-width: 500px; margin: 0 auto;
+            background: #FDFBF7;
+            background-image: radial-gradient(circle at 50% 0%, rgba(215,196,242,0.15) 0%, transparent 50%),
+                              radial-gradient(circle at 50% 100%, rgba(215,196,242,0.15) 0%, transparent 50%);
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            padding-bottom: 40px;
         }
 
-        .butterfly-icon {
-            width: 70px;
-            height: 70px;
-            margin: 15px auto;
-            display: block;
-        }
-
-        /* Bloques de color Morado / Ciruela */
-        .music-section, .countdown-purple-block, .rsvp-purple-block {
-            background-color: #7D5BA6;
-            color: white;
-            padding: 25px 20px;
-            border-radius: 15px;
-            margin: 25px 0;
-            box-shadow: 0 4px 15px rgba(125, 91, 166, 0.2);
-        }
-
-        .music-control-button {
-            background: transparent;
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .music-control-button svg { width: 22px; height: 22px; fill: white; }
-
-        /* Calendario Mejorado */
-        .calendar {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            color: #333;
-            margin: 20px auto;
-            max-width: 320px;
-        }
-        .calendar-month-title {
-            font-weight: 700;
-            font-size: 1.3rem;
+        /* Tipografía de Títulos */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
             color: #7D5BA6;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 600;
         }
-        .calendar-header {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            font-weight: bold;
-            color: #777;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            font-size: 0.9rem;
+        h3 { font-size: 1.8rem; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* ----- HERO SECTION ----- */
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            row-gap: 12px;
-            padding-top: 12px;
-            font-size: 0.95rem;
+
+        /* ----- SEPARADOR ELEGANTE ----- */
+        .divider {
+            display: flex; align-items: center; justify-content: center;
+            margin: 45px 0; opacity: 0.6;
         }
-        .calendar-days span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 32px;
+        .divider::before, .divider::after {
+            content: ''; width: 30%; height: 1px;
+            background: linear-gradient(to right, transparent, #7D5BA6, transparent);
         }
-        .calendar-days .calendar-highlight {
-            background-color: #7D5BA6;
-            color: white;
+        .divider span { color: #7D5BA6; margin: 0 15px; font-size: 1.2rem; }
+
+        /* ----- ANIMACIONES (SCROLL) ----- */
+        .animate-on-scroll {
+            opacity: 0; transform: translateY(35px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        /* ----- SECCIÓN MÚSICA (GLASSMORPHISM) ----- */
+        .music-section { text-align: center; padding: 10px 20px; }
+        .music-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #7D5BA6; margin-bottom: 15px;}
+        
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(125, 91, 166, 0.4);
+            width: 75px; height: 75px;
+            display: inline-flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            box-shadow: 0 8px 32px 0 rgba(125, 91, 166, 0.2);
+            transition: all 0.3s ease;
         }
+        .glass-btn:hover { transform: scale(1.05); background: rgba(255, 255, 255, 0.6); }
+        .glass-btn svg { width: 28px; height: 28px; fill: #7D5BA6; transition: all 0.3s; }
+
+        /* ----- MENSAJE PERSONAL ----- */
+        .personal-message {
+            text-align: center; padding: 0 35px;
+            font-size: 0.95rem; line-height: 1.8;
+            color: #555; font-weight: 300; letter-spacing: 0.5px;
+        }
+
+        /* ----- FECHA Y CALENDARIO ----- */
+        .date-section { text-align: center; padding: 0 20px; }
+        
+        .date-hero { margin-bottom: 25px; }
+        .date-hero .day-name { display: block; font-family: 'Montserrat', sans-serif; font-size: 1rem; letter-spacing: 4px; color: #888; text-transform: uppercase; }
+        .date-hero .day-number { display: block; font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; color: #7D5BA6; line-height: 1; margin: 5px 0; }
+        .date-hero .month-name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; }
+
+        .calendar {
+            background: white; border-radius: 15px; padding: 25px;
+            box-shadow: 0 10px 30px rgba(125, 91, 166, 0.08);
+            margin: 0 auto 25px auto; max-width: 320px;
+            border: 1px solid rgba(125, 91, 166, 0.1);
+        }
+        .calendar-header { display: grid; grid-template-columns: repeat(7, 1fr); font-weight: 500; color: #999; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 0.85rem; }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 15px; padding-top: 15px; font-size: 1rem; color: #444; font-family: 'Cormorant Garamond', serif; font-weight: 600;}
+        .calendar-days span { display: flex; align-items: center; justify-content: center; height: 35px; }
+        .calendar-days .calendar-highlight { background-color: #7D5BA6; color: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(125, 91, 166, 0.4); transform: scale(1.1); }
         .calendar-days .empty-day { visibility: hidden; }
 
         .calendar-btn {
-            display: inline-block;
-            background-color: #7D5BA6;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            text-decoration: none;
-            transition: background 0.3s;
+            display: inline-block; background-color: transparent; color: #7D5BA6;
+            border: 1px solid #7D5BA6; padding: 12px 25px; border-radius: 30px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px;
+            transition: all 0.3s;
         }
-        .calendar-btn:hover { background-color: #614284; }
+        .calendar-btn:hover { background-color: #7D5BA6; color: white; box-shadow: 0 5px 15px rgba(125, 91, 166, 0.3); }
 
-        /* Cuenta atrás */
-        .countdown-timer {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
+        /* ----- CUENTA REGRESIVA DINÁMICA ----- */
+        .countdown-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #7D5BA6; margin-top: 40px; font-style: italic; }
+        .elegant-countdown { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
+        .time-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 75px; height: 85px;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(125, 91, 166, 0.15); border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
         }
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-        .countdown-item span {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
+        .time-box span { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: #7D5BA6; line-height: 1; }
+        .time-box small { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 6px; }
 
-        /* Familias Tipografía */
-        .family-list p {
-            font-size: 1.4rem !important;
-            font-style: italic !important;
-            color: #4A4A4A;
-            margin: 5px 0 20px 0;
-        }
+        /* ----- FAMILIA ----- */
+        .family-section { text-align: center; padding: 0 25px; }
+        .family-section p.intro-fam { font-size: 0.9rem; line-height: 1.8; color: #555; margin-bottom: 30px; font-weight: 300;}
+        .family-label { font-size: 0.75rem; letter-spacing: 2px; color: #999; text-transform: uppercase; }
+        .family-names { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; margin: 5px 0 25px 0; font-weight: 600;}
 
-        /* Ubicaciones e Imágenes */
-        .location-img {
-            width: 100%;
-            max-width: 320px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .dress-code-img {
-            max-width: 220px;
-            margin: 15px auto;
-            display: block;
-        }
+        /* ----- UBICACIONES ----- */
+        .locations-section { text-align: center; padding: 0 20px; }
+        .location-item { margin-bottom: 40px; }
+        .location-img { width: 100%; max-width: 320px; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .location-item h4 { font-size: 2.2rem; font-style: italic; margin-bottom: 5px; }
+        .location-item p { margin: 3px 0; font-size: 0.9rem; color: #555; letter-spacing: 1px; }
+        
+        /* ----- VERSÍCULO / FRASE ----- */
+        .quotes-section { text-align: center; padding: 0 35px; }
+        .quotes-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #7D5BA6; line-height: 1.4; }
+        .quotes-section .reference { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-style: normal; letter-spacing: 2px; color: #888; margin-top: 15px; }
 
-        /* Nuevos Círculos de Colores Reservados */
-        .color-swatches {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        .swatch {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        }
-        /* Mapeo de tonos exactos solicitados */
+        /* ----- REGALO Y CÓDIGO DE VESTIMENTA ----- */
+        .gifts-section, .dress-code-section { text-align: center; padding: 0 25px; }
+        .gifts-section p, .dress-code-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; }
+        .dress-code-img { max-width: 250px; margin: 20px auto; display: block; }
+
+        /* Círculos de Colores */
+        .color-swatches { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .swatch { width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); border: 2px solid white; }
         .swatch.lavanda { background-color: #E6E6FA; }
         .swatch.lila { background-color: #C8A2C8; }
         .swatch.glicinia { background-color: #C9A0DC; }
@@ -225,35 +194,36 @@
         .swatch.amatista { background-color: #9966CC; }
         .swatch.ciruela { background-color: #701C1C; }
 
-        /* RSVP */
+        /* ----- RSVP (CONFIRMACIÓN ELEGANTE) ----- */
+        .rsvp-purple-block {
+            background: linear-gradient(135deg, #7D5BA6 0%, #5E4182 100%);
+            color: white; padding: 40px 25px; border-radius: 20px;
+            margin: 40px 20px 20px 20px; text-align: center;
+            box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3);
+        }
+        .rsvp-purple-block h3 { color: white; margin-bottom: 15px; }
+        .rsvp-purple-block p { font-size: 0.9rem; line-height: 1.6; font-weight: 300; opacity: 0.9; }
+        
         .rsvp-input {
-            width: 85%;
-            padding: 12px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            margin: 15px 0;
-            font-size: 1rem;
-            text-align: center;
-            outline: none;
-            font-family: inherit;
+            width: 85%; padding: 15px; border-radius: 30px; border: none;
+            margin: 20px 0; font-size: 1rem; text-align: center;
+            font-family: 'Montserrat', sans-serif; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            outline: none; transition: box-shadow 0.3s;
         }
+        .rsvp-input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+        
         .rsvp-btn {
-            background-color: white;
-            color: #7D5BA6;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: white; color: #7D5BA6; border: none;
+            padding: 15px 35px; border-radius: 30px; font-weight: 600;
+            cursor: pointer; font-size: 0.95rem; letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .rsvp-btn:hover { transform: scale(1.03); }
+        .rsvp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
     </style>
 </head>
-<body>
+<body class="intro-active">
 
+    <!-- Sección del Video e Intro -->
     <div id="video-overlay">
         <div id="intro-pantalla">
             <img src="assets/intro.png" alt="Portada de la invitación">
@@ -262,9 +232,7 @@
 
         <video id="introVideo" playsinline>
             <source src="https://invytia.github.io/XV-RENATA/xvrenata.mp4" type="video/mp4">
-            Tu navegador no soporta el formato de video.
         </video>
-        
         <audio id="intro-song" src="assets/song1.mp3"></audio>
     </div>
 
@@ -272,37 +240,46 @@
     <div id="invitacion-principal">
         <div class="invitation-container">
             
-            <header>
-                <svg class="butterfly-icon" viewBox="0 0 64 64" fill="#7D5BA6">
-                    <path d="M32,28 C22,6 4,8 8,24 C10,32 24,32 32,30 C24,40 14,50 22,52 C28,54 32,42 32,28 Z" />
-                    <path d="M32,28 C42,6 60,8 56,24 C54,32 40,32 32,30 C40,40 50,50 42,52 C36,54 32,42 32,28 Z" />
-                    <path d="M31,12 C31,10 33,10 33,12 L33,44 C33,46 31,46 31,44 Z" fill="#4A2E80"/>
-                </svg>
-                <h1 class="quinceanera-name">Renata</h1>
-                <h2 class="title">MIS XV AÑOS</h2>
+            <!-- Hero Completo -->
+            <header class="hero-section animate-on-scroll">
+                <img src="assets/hero.png" alt="Mis XV Renata">
             </header>
 
-            <section class="music-section">
-                <p>MI CANCIÓN</p>
-                <button id="play-button" class="music-control-button">
-                    <svg viewBox="0 0 512 512">
-                        <path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z" fill="#FFFFFF"/>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <!-- Sección de Música Dinámica -->
+            <section class="music-section animate-on-scroll">
+                <p>Mi Canción</p>
+                <button id="play-button" class="glass-btn">
+                    <!-- Ícono de Play por defecto -->
+                    <svg id="music-icon" viewBox="0 0 512 512">
+                        <path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>
                     </svg>
                 </button>
                 <audio id="quince-song" src="assets/song2.mp3"></audio>
             </section>
 
-            <section class="introduction-section">
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="animate-on-scroll">
                 <p class="personal-message">
-                    DESPUÉS DE TANTOS SUEÑOS E ILUSIONES, POR FIN HA LLEGADO EL DÍA QUE TANTO HE ESPERADO... MIS XV AÑOS, Y ME ENCANTARÍA COMPARTIR ESTE MOMENTO TAN ESPECIAL CONTIGO.
+                    Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.
                 </p>
             </section>
 
-            <section class="date-section">
-                <h3>AGENDA LA FECHA</h3>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <!-- Calendario y Fecha Rediseñados -->
+            <section class="date-section animate-on-scroll">
                 
+                <!-- La fecha arriba en tamaño monumental -->
+                <div class="date-hero">
+                    <span class="day-name">Viernes</span>
+                    <span class="day-number">07</span>
+                    <span class="month-name">Agosto</span>
+                </div>
+
                 <div class="calendar">
-                    <div class="calendar-month-title">Agosto 2026</div>
                     <div class="calendar-header">
                         <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
                     </div>
@@ -310,147 +287,137 @@
                         <span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span>
                         <span>1</span><span>2</span>
                         <span>3</span><span>4</span><span>5</span><span>6</span>
-                        <span class="calendar-highlight">07</span> <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                        <span class="calendar-highlight">07</span>
+                        <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
                         <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
                         <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
                         <span>29</span><span>30</span><span>31</span>
                     </div>
                 </div>
 
-                <div class="date-details">
-                    <span>VIERNES</span>
-                    <span class="number">07</span>
-                    <span>AGOSTO</span>
-                </div>
-
                 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Renata&dates=20260807T210000Z/20260808T050000Z&details=¡Te+espero+para+celebrar+juntos+mis+XV+años!&location=D+Arellanos+Banquet" target="_blank" class="calendar-btn">
                     AGREGAR AL CALENDARIO
                 </a>
 
-                <div class="countdown-purple-block">
-                    <h4>Solo Falta</h4>
-                    <div id="countdown" class="countdown-timer">
-                        <div class="countdown-item"><span id="days">00</span>DÍAS</div>
-                        <div class="countdown-item"><span id="hours">00</span>HORAS</div>
-                        <div class="countdown-item"><span id="minutes">00</span>MINS</div>
-                        <div class="countdown-item"><span id="seconds">00</span>SEGS</div>
-                    </div>
+                <!-- Cuenta atrás rediseñada en cristales -->
+                <div class="countdown-title">Faltan solo...</div>
+                <div class="elegant-countdown">
+                    <div class="time-box"><span id="days">00</span><small>Días</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>Hrs</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
                 </div>
             </section>
 
-            <section class="family-section">
-                <p>
-                    MI CORAZÓN SE LLENA DE GOZO AL SABER QUE DIOS ME HA PERMITIDO LLEGAR A ESTE DÍA TAN ESPECIAL. ACOMPÁÑAME A DARLE GRACIAS.
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="family-section animate-on-scroll">
+                <p class="intro-fam">
+                    Mi corazón se llena de gozo al saber que Dios me ha permitido llegar a este día tan especial. Acompáñame a darle gracias.
                 </p>
-                <div class="family-list">
-                    <div>
-                        <span class="family-label">ACOMPAÑADA SIEMPRE POR EL AMOR DE MIS PADRES:</span>
-                        <p>Camilo Pérez y Silvia Hernández</p>
-                    </div>
-                    <div>
-                        <span class="family-label">Y GUIADA CON CARIÑO POR MIS PADRINOS:</span>
-                        <p>Emilio Diaz y Carolina Méndez</p>
-                    </div>
+                <div>
+                    <span class="family-label">Con el amor de mis padres:</span>
+                    <p class="family-names">Camilo Pérez & Silvia Hernández</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <span class="family-label">Guiada por mis padrinos:</span>
+                    <p class="family-names">Emilio Diaz & Carolina Méndez</p>
                 </div>
             </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
 
             <section class="locations-section">
-                <h3>UBICACIONES</h3>
-                
-                <div class="location-item">
+                <div class="location-item animate-on-scroll">
+                    <h3>Misa</h3>
                     <img src="assets/misa.jpg" alt="Santuario de San Benito" class="location-img">
-                    <h4>Misa</h4>
-                    <a href="https://maps.google.com" class="location-button" target="_blank">VER UBICACIÓN</a>
-                    <p>SANTUARIO DE SAN BENITO</p>
+                    <h4>Santuario de San Benito</h4>
                     <p>4:00 P.M</p>
+                    <a href="https://maps.google.com" class="calendar-btn" style="margin-top:10px;" target="_blank">VER UBICACIÓN</a>
                 </div>
 
-                <div class="location-item">
+                <div class="location-item animate-on-scroll">
+                    <h3>Recepción</h3>
                     <img src="assets/salon.jpg" alt="D' Arellanos Banquet" class="location-img">
-                    <h4>Recepción</h4>
-                    <a href="https://maps.google.com" class="location-button" target="_blank">VER UBICACIÓN</a>
-                    <p>D' ARELLANOS BANQUET</p>
+                    <h4>D' Arellanos Banquet</h4>
                     <p>7:00 P.M</p>
+                    <a href="https://maps.google.com" class="calendar-btn" style="margin-top:10px;" target="_blank">VER UBICACIÓN</a>
                 </div>
             </section>
 
-            <section class="quotes-section">
-                <p>“ESTÁ VESTIDA DE FUERZA Y DIGNIDAD, Y SE RÍE SIN TEMOR AL FUTURO.”</p>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="quotes-section animate-on-scroll">
+                <p>“Está vestida de fuerza y dignidad, y se ríe sin temor al futuro.”</p>
                 <p class="reference">PROVERBIOS 31:25</p>
             </section>
 
-            <section class="gifts-section">
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="gifts-section animate-on-scroll">
                 <h3>Opción de Regalo</h3>
-                <p>MI MEJOR REGALO ES COMPARTIR CONTIGO ESTE GRAN DÍA, SI DESEAS OBSEQUIARME ALGO, PUEDO SUGERIRTE LA SIGUIENTE OPCIÓN:</p>
-                <div class="gift-icon">
-                    <svg viewBox="0 0 24 24" width="50" height="50" style="fill: #7D5BA6; margin: 10px auto; display:block;">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                </div>
-                <p class="gift-message">¡Lluvia de sobres!</p>
+                <p>Mi mejor regalo es compartir contigo este gran día. Si deseas obsequiarme algo, puedo sugerirte la siguiente opción:</p>
+                <svg viewBox="0 0 24 24" width="45" height="45" style="fill: #7D5BA6; margin: 15px auto; display:block; opacity: 0.8;">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <p style="font-weight: 500; color:#7D5BA6;">¡Lluvia de sobres!</p>
             </section>
 
-            <section class="dress-code-section">
-                <h3>CÓDIGO DE VESTIMENTA</h3>
-                <p>Elegante</p>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="dress-code-section animate-on-scroll">
+                <h3>Código de Vestimenta</h3>
+                <p style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-style:italic; color:#7D5BA6;">Elegante</p>
                 
                 <img src="assets/iconos.png" alt="Iconos Código de Vestimenta" class="dress-code-img">
                 
-                <p class="reserve-message">
-                    SE RESERVA EL COLOR LILA Y MORADO EN TODOS SUS TONOS SOLO PARA LA QUINCEAÑERA
+                <p style="font-size: 0.8rem; letter-spacing: 1px; text-transform:uppercase;">
+                    Se reserva el color lila y morado en todos sus tonos solo para la quinceañera.
                 </p>
                 
                 <div class="color-swatches">
-                    <div class="swatch lavanda" title="Lavanda"></div>
-                    <div class="swatch lila" title="Lila"></div>
-                    <div class="swatch glicinia" title="Glicinia"></div>
-                    <div class="swatch malva" title="Malva"></div>
-                    <div class="swatch amatista" title="Amatista"></div>
-                    <div class="swatch ciruela" title="Ciruela"></div>
+                    <div class="swatch lavanda"></div>
+                    <div class="swatch lila"></div>
+                    <div class="swatch glicinia"></div>
+                    <div class="swatch malva"></div>
+                    <div class="swatch amatista"></div>
+                    <div class="swatch ciruela"></div>
                 </div>
             </section>
 
-            <footer class="rsvp-purple-block">
-                <h3>CONFIRMAR ASISTENCIA</h3>
-                <p>LOS MEJORES RECUERDOS SE CREAN CON PERSONAS ESPECIALES COMO USTEDES. SERÍA UN PLACER QUE NOS ACOMPAÑARAS.</p>
+            <!-- RSVP Elegante -->
+            <footer class="rsvp-purple-block animate-on-scroll">
+                <h3 style="font-size:2rem; font-style:italic;">Confirmar Asistencia</h3>
+                <p>Los mejores recuerdos se crean con personas especiales como ustedes. Sería un placer que nos acompañaras.</p>
                 
-                <input type="text" id="guest-name" class="rsvp-input" placeholder="Escribe tu nombre aquí" required>
-                <br>
-                <button class="rsvp-btn" onclick="enviarWhatsApp()">Enviar Confirmación</button>
+                <input type="text" id="guest-name" class="rsvp-input" placeholder="Escribe tu nombre y apellidos" required>
+                <button class="rsvp-btn" onclick="enviarWhatsApp()">ENVIAR CONFIRMACIÓN</button>
                 
-                <p style="margin-top:20px; font-size:0.9rem;">TE ESPERAMOS ...</p>
+                <p style="margin-top:25px; font-size:0.8rem; letter-spacing: 3px; text-transform:uppercase;">¡Te esperamos!</p>
             </footer>
 
         </div>
     </div>
 
     <script>
+        // --- 1. LÓGICA DE INTRODUCCIÓN Y SCROLL ---
         const video = document.getElementById('introVideo');
         const overlay = document.getElementById('video-overlay');
         const introPantalla = document.getElementById('intro-pantalla');
         const actionArea = document.getElementById('intro-action-area');
-        
-        // Elementos musicales diferenciados
         const introSong = document.getElementById('intro-song');
-        const playBtn = document.getElementById('play-button');
-        const quinceSong = document.getElementById('quince-song');
 
         function habilitarScroll() {
-            document.body.style.overflow = 'auto';
-            document.documentElement.style.overflow = 'auto';
+            document.body.classList.remove('intro-active');
         }
 
-        // Al hacer click en la portada, se reproduce el video y la canción de intro 1
         actionArea.addEventListener('click', () => {
             actionArea.style.display = 'none';
-            
             let playPromise = video.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
                     introPantalla.style.opacity = '0';
                     setTimeout(() => { introPantalla.style.display = 'none'; }, 800);
-                    
-                    // Suena canción 1
                     introSong.play();
                 }).catch(error => {
                     console.error("Autoplay bloqueado:", error);
@@ -459,45 +426,67 @@
             }
         });
 
-        // Al terminar el video se detiene la canción 1 y se quita el overlay
         video.onended = () => {
             overlay.style.opacity = '0';
-            introSong.pause(); // Detiene canción 1
-            
+            introSong.pause(); 
             setTimeout(() => { 
                 overlay.style.display = 'none'; 
                 habilitarScroll(); 
             }, 800);
         };
 
-        // Control manual y exclusivo de la canción de la invitación (song2)
+        // --- 2. LÓGICA DEL BOTÓN DE MÚSICA DINÁMICO ---
+        const playBtn = document.getElementById('play-button');
+        const quinceSong = document.getElementById('quince-song');
+        const musicIcon = document.getElementById('music-icon');
+        
+        // SVGs en variables para intercambiar
+        const svgPlay = '<path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>';
+        const svgPause = '<path d="M144 479H48c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48zm304 0h-96c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48z"/>';
+
         playBtn.addEventListener('click', () => {
             if (quinceSong.paused) {
                 quinceSong.play();
-                playBtn.style.transform = "scale(0.95)";
+                musicIcon.innerHTML = svgPause; // Cambia a icono de pausa
+                // Opcional: Ajustar viewBox porque el icono de pausa es ligeramente diferente
+                musicIcon.setAttribute("viewBox", "0 0 448 512"); 
             } else {
                 quinceSong.pause();
-                playBtn.style.transform = "scale(1)";
+                musicIcon.innerHTML = svgPlay; // Regresa a icono de play
+                musicIcon.setAttribute("viewBox", "0 0 512 512");
             }
         });
 
-        // Función para mandar la confirmación con el nombre por WhatsApp
+        // --- 3. ANIMACIONES AL HACER SCROLL ---
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Anima solo una vez
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 4. CONFIRMACIÓN WHATSAPP ---
         function enviarWhatsApp() {
             const nombre = document.getElementById('guest-name').value.trim();
             if (nombre === "") {
-                alert("Por favor, ingresa tu nombre para confirmar.");
+                alert("Por favor, ingresa tu nombre y apellidos para confirmar.");
                 return;
             }
             const numeroTel = "525632023012";
             const textoMensaje = encodeURIComponent(`¡Hola, Renata! Confirmo mi asistencia a tus XV Años. Mi nombre es: ${nombre}. ¡Allí estaré!`);
             const urlWhatsApp = `https://wa.me/${numeroTel}?text=${textoMensaje}`;
-            
             window.open(urlWhatsApp, '_blank');
         }
 
-        // Lógica automática del Countdown (Ejemplo de actualización continua)
+        // --- 5. CUENTA REGRESIVA ---
         function actualizarCountdown() {
-            // Fecha objetivo: 7 de Agosto de 2026
             const fechaObjetivo = new Date('August 7, 2026 16:00:00').getTime();
             const ahora = new Date().getTime();
             const diferencia = fechaObjetivo - ahora;
