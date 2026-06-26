@@ -5,139 +5,531 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación XV Años - Renata</title>
     
+    <!-- Fuentes ultra elegantes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background-color: #FAFAFA; color: #4A4A4A; }
-        
-        /* ----- VIDEO INTRO ----- */
-        body.intro-active { overflow: hidden; }
-        #video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: black; transition: opacity 0.8s ease; }
-        #intro-pantalla { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background-color: #ffffff; display: flex; justify-content: center; align-items: center; }
+        /* ----- RESET Y CONFIGURACIÓN BÁSICA ----- */
+        body, html {
+            margin: 0; padding: 0;
+            overflow-x: hidden; 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAFAFA; /* Fondo base claro y elegante */
+            color: #4A4A4A;
+        }
+
+        /* ----- OVERLAY DEL VIDEO INTRO ----- */
+        body.intro-active { overflow: hidden; } /* Bloquea scroll solo al inicio */
+
+        #video-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999; background: black;
+            transition: opacity 0.8s ease;
+        }
+
+        #intro-pantalla {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; background-color: #ffffff; 
+            transition: opacity 0.8s ease;
+            display: flex; justify-content: center; align-items: center;
+        }
         #intro-pantalla img { width: 100%; height: 100%; object-fit: cover; }
-        #intro-action-area { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 15%; cursor: pointer; z-index: 3; }
-        #introVideo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
-        /* ----- CONTENEDOR PRINCIPAL ----- */
-        .invitation-container { max-width: 500px; margin: 0 auto; background: #FDFBF7; padding-bottom: 40px; }
+        #intro-action-area {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60%; height: 15%; background-color: transparent;
+            cursor: pointer; z-index: 3;
+        }
 
-        /* ----- DIVISORES FLORALES (ESTRUCTURALES) ----- */
-        .floral-divider { text-align: center; margin: 30px 0; padding: 10px 0; }
-        .floral-divider img { width: 100%; max-width: 320px; height: auto; display: block; margin: 0 auto; }
-        
-        /* Estilo específico para las esquinas */
-        .floral-corner { text-align: right; margin-top: -20px; margin-bottom: 10px; }
-        .floral-corner img { width: 150px; height: auto; }
+        #introVideo { 
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; object-fit: cover; z-index: 1;
+        }
 
-        /* ----- ESTILOS DE TEXTO ----- */
-        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; color: #7D5BA6; margin: 0; font-weight: 600; text-align: center; }
+        /* ----- ESTRUCTURA PRINCIPAL ----- */
+        .invitation-container {
+            max-width: 500px; margin: 0 auto;
+            background: #FDFBF7;
+            background-image: radial-gradient(circle at 50% 0%, rgba(215,196,242,0.15) 0%, transparent 50%),
+                              radial-gradient(circle at 50% 100%, rgba(215,196,242,0.15) 0%, transparent 50%);
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            padding-bottom: 40px;
+        }
+
+        /* Tipografía de Títulos */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #7D5BA6;
+            margin: 0;
+            font-weight: 600;
+        }
         h3 { font-size: 1.8rem; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
 
-        .hero-section img { width: 100%; height: auto; display: block; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .personal-message { text-align: center; padding: 0 35px; line-height: 1.8; color: #555; }
+        /* ----- HERO SECTION ----- */
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
 
-        /* ----- CALENDARIO, BOTONES, PASES (Mismo estilo funcional anterior) ----- */
-        .date-section, .family-section, .locations-section, .passes-section { text-align: center; padding: 0 20px; }
+        /* ----- SEPARADOR ELEGANTE ----- */
+        .divider {
+            display: flex; align-items: center; justify-content: center;
+            margin: 45px 0; opacity: 0.6;
+        }
+        .divider::before, .divider::after {
+            content: ''; width: 30%; height: 1px;
+            background: linear-gradient(to right, transparent, #7D5BA6, transparent);
+        }
+        .divider span { color: #7D5BA6; margin: 0 15px; font-size: 1.2rem; }
+
+        /* ----- ANIMACIONES (SCROLL) ----- */
+        .animate-on-scroll {
+            opacity: 0; transform: translateY(35px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        /* ----- SECCIÓN MÚSICA (GLASSMORPHISM) ----- */
+        .music-section { text-align: center; padding: 10px 20px; }
+        .music-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #7D5BA6; margin-bottom: 15px;}
+        
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 75px; height: 75px;
+            display: inline-flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            box-shadow: 0 8px 32px 0 rgba(125, 91, 166, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-btn:hover { transform: scale(1.05); background: rgba(255, 255, 255, 0.6); }
+        .glass-btn svg { width: 28px; height: 28px; fill: #7D5BA6; transition: all 0.3s; }
+
+        /* ----- MENSAJE PERSONAL ----- */
+        .personal-message {
+            text-align: center; padding: 0 35px;
+            font-size: 0.95rem; line-height: 1.8;
+            color: #555; font-weight: 300; letter-spacing: 0.5px;
+        }
+
+        /* ----- FECHA Y CALENDARIO ----- */
+        .date-section { text-align: center; padding: 0 20px; }
+        
         .date-hero { margin-bottom: 25px; }
-        .day-number { font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: #7D5BA6; line-height: 1; display: block; }
-        
-        .calendar { background: white; border-radius: 15px; padding: 25px; margin: 20px auto; max-width: 320px; border: 1px solid rgba(125, 91, 166, 0.1); }
-        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; padding-top: 15px; }
-        .calendar-highlight { background-color: #7D5BA6; color: white; border-radius: 50%; }
+        .date-hero .day-name { display: block; font-family: 'Montserrat', sans-serif; font-size: 1rem; letter-spacing: 4px; color: #888; text-transform: uppercase; }
+        .date-hero .day-number { display: block; font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; color: #7D5BA6; line-height: 1; margin: 5px 0; }
+        .date-hero .month-name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; }
 
-        .calendar-btn { display: inline-block; background-color: transparent; color: #7D5BA6; border: 1px solid #7D5BA6; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-size: 0.85rem; }
-        
-        .ticket-container { display: none; justify-content: center; margin-top: 20px; }
-        .ticket { background: #7D5BA6; width: 100%; max-width: 320px; border-radius: 20px; color: white; padding: 20px; text-align: center; }
+        .calendar {
+            background: white; border-radius: 15px; padding: 25px;
+            box-shadow: 0 10px 30px rgba(125, 91, 166, 0.08);
+            margin: 0 auto 25px auto; max-width: 320px;
+            border: 1px solid rgba(125, 91, 166, 0.1);
+        }
+        .calendar-header { display: grid; grid-template-columns: repeat(7, 1fr); font-weight: 500; color: #999; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 0.85rem; }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 15px; padding-top: 15px; font-size: 1rem; color: #444; font-family: 'Cormorant Garamond', serif; font-weight: 600;}
+        .calendar-days span { display: flex; align-items: center; justify-content: center; height: 35px; }
+        .calendar-days .calendar-highlight { background-color: #7D5BA6; color: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(125, 91, 166, 0.4); transform: scale(1.1); }
+        .calendar-days .empty-day { visibility: hidden; }
 
-        .rsvp-purple-block { background: #7D5BA6; color: white; padding: 40px 25px; border-radius: 20px; margin: 20px; text-align: center; }
-        .rsvp-input { width: 85%; padding: 15px; border-radius: 30px; border: none; margin-bottom: 20px; text-align: center; }
-        .rsvp-btn { background: white; color: #7D5BA6; border: none; padding: 15px 35px; border-radius: 30px; font-weight: 600; cursor: pointer; }
+        .calendar-btn {
+            display: inline-block; background-color: transparent; color: #7D5BA6;
+            border: 1px solid #7D5BA6; padding: 12px 25px; border-radius: 30px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .calendar-btn:hover { background-color: #7D5BA6; color: white; box-shadow: 0 5px 15px rgba(125, 91, 166, 0.3); }
+
+        /* ----- CUENTA REGRESIVA DINÁMICA ----- */
+        .countdown-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #7D5BA6; margin-top: 40px; font-style: italic; }
+        .elegant-countdown { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
+        .time-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 75px; height: 85px;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(125, 91, 166, 0.15); border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+        }
+        .time-box span { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: #7D5BA6; line-height: 1; }
+        .time-box small { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 6px; }
+
+        /* ----- FAMILIA ----- */
+        .family-section { text-align: center; padding: 0 25px; }
+        .family-section p.intro-fam { font-size: 0.9rem; line-height: 1.8; color: #555; margin-bottom: 30px; font-weight: 300;}
+        .family-label { font-size: 0.75rem; letter-spacing: 2px; color: #999; text-transform: uppercase; }
+        .family-names { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; margin: 5px 0 25px 0; font-weight: 600;}
+
+        /* ----- UBICACIONES ----- */
+        .locations-section { text-align: center; padding: 0 20px; }
+        .location-item { margin-bottom: 40px; }
+        .location-img { width: 100%; max-width: 320px; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .location-item h4 { font-size: 2.2rem; font-style: italic; margin-bottom: 5px; }
+        .location-item p { margin: 3px 0; font-size: 0.9rem; color: #555; letter-spacing: 1px; }
+        
+        /* ----- VERSÍCULO / FRASE ----- */
+        .quotes-section { text-align: center; padding: 0 35px; }
+        .quotes-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #7D5BA6; line-height: 1.4; }
+        .quotes-section .reference { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-style: normal; letter-spacing: 2px; color: #888; margin-top: 15px; }
+
+        /* ----- REGALO Y CÓDIGO DE VESTIMENTA ----- */
+        .gifts-section, .dress-code-section { text-align: center; padding: 0 25px; }
+        .gifts-section p, .dress-code-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; }
+        .dress-code-img { max-width: 250px; margin: 20px auto; display: block; }
+
+        /* Círculos de Colores */
+        .color-swatches { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .swatch { width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); border: 2px solid white; }
+        .swatch.lavanda { background-color: #E6E6FA; }
+        .swatch.lila { background-color: #C8A2C8; }
+        .swatch.glicinia { background-color: #C9A0DC; }
+        .swatch.malva { background-color: #E0B0FF; }
+        .swatch.amatista { background-color: #9966CC; }
+        .swatch.ciruela { background-color: #701C1C; }
+
+        /* ----- SISTEMA DE PASES (NUEVO) ----- */
+        .passes-section { text-align: center; padding: 0 25px; }
+        .passes-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; margin-bottom: 25px; }
+        
+        .select-wrapper { margin-bottom: 30px; position: relative; }
+        select#guest-select {
+            width: 100%; max-width: 350px;
+            padding: 15px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #4A4A4A;
+            border: 2px solid rgba(125, 91, 166, 0.3);
+            border-radius: 30px;
+            background-color: white;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(125, 91, 166, 0.05);
+            transition: all 0.3s;
+        }
+        select#guest-select:focus { border-color: #7D5BA6; box-shadow: 0 5px 20px rgba(125, 91, 166, 0.2); }
+        .select-icon {
+            position: absolute; right: 15%; top: 50%; transform: translateY(-50%);
+            fill: #7D5BA6; pointer-events: none;
+        }
+
+        /* Estilo del Boleto/Pase */
+        .ticket-container {
+            display: none; /* Se muestra al seleccionar */
+            justify-content: center;
+            margin-top: 10px;
+            animation: fadeInTicket 0.5s ease forwards;
+        }
+        @keyframes fadeInTicket { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .ticket {
+            background: linear-gradient(135deg, #7D5BA6 0%, #a283c7 100%);
+            width: 100%; max-width: 320px;
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3);
+            overflow: hidden;
+        }
+        /* Efecto de recorte lateral del ticket */
+        .ticket::before, .ticket::after {
+            content: ''; position: absolute; top: 55%;
+            width: 30px; height: 30px; background-color: #FDFBF7;
+            border-radius: 50%; transform: translateY(-50%);
+        }
+        .ticket::before { left: -15px; box-shadow: inset -3px 0 5px rgba(0,0,0,0.05); }
+        .ticket::after { right: -15px; box-shadow: inset 3px 0 5px rgba(0,0,0,0.05); }
+
+        .ticket-header {
+            padding: 20px; text-align: center; border-bottom: 2px dashed rgba(255,255,255,0.4);
+        }
+        .ticket-header h4 { color: white; font-size: 1.8rem; letter-spacing: 1px; font-style: italic; }
+        
+        .ticket-body { padding: 25px 20px; }
+        .ticket-name-display { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; }
+        
+        .passes-count {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 10px 25px; border-radius: 15px; backdrop-filter: blur(5px);
+        }
+        .passes-count span { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; line-height: 1; display: block; }
+        .passes-count small { font-size: 0.75rem; letter-spacing: 2px; }
+
+        .ticket-footer { background: rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        
+        .wallet-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 90%; padding: 12px; border-radius: 25px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; border: none; transition: transform 0.2s;
+        }
+        .wallet-btn:hover { transform: scale(1.03); }
+        .wallet-btn.apple { background-color: #000; color: white; }
+        .wallet-btn.google { background-color: #fff; color: #3c4043; border: 1px solid #dadce0; }
+        .wallet-btn svg { width: 18px; height: 18px; }
+
+        /* ----- RSVP (CONFIRMACIÓN ELEGANTE) ----- */
+        .rsvp-purple-block {
+            background: linear-gradient(135deg, #7D5BA6 0%, #5E4182 100%);
+            color: white; padding: 40px 25px; border-radius: 20px;
+            margin: 40px 20px 20px 20px; text-align: center;
+            box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3);
+        }
+        .rsvp-purple-block h3 { color: white; margin-bottom: 15px; }
+        .rsvp-purple-block p { font-size: 0.9rem; line-height: 1.6; font-weight: 300; opacity: 0.9; }
+        
+        .rsvp-input {
+            width: 85%; padding: 15px; border-radius: 30px; border: none;
+            margin: 20px 0; font-size: 1rem; text-align: center;
+            font-family: 'Montserrat', sans-serif; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            outline: none; transition: box-shadow 0.3s;
+        }
+        .rsvp-input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+        
+        .rsvp-btn {
+            background-color: white; color: #7D5BA6; border: none;
+            padding: 15px 35px; border-radius: 30px; font-weight: 600;
+            cursor: pointer; font-size: 0.95rem; letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .rsvp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body class="intro-active">
 
+    <!-- Sección del Video e Intro -->
     <div id="video-overlay">
         <div id="intro-pantalla">
-            <img src="assets/intro.png" alt="Portada">
-            <div id="intro-action-area"></div>
+            <img src="assets/intro.png" alt="Portada de la invitación">
+            <div id="intro-action-area" title="Toca para abrir"></div>
         </div>
-        <video id="introVideo" playsinline><source src="https://invytia.github.io/XV-RENATA/xvrenata.mp4" type="video/mp4"></video>
+
+        <video id="introVideo" playsinline>
+            <source src="https://invytia.github.io/XV-RENATA/xvrenata.mp4" type="video/mp4">
+        </video>
         <audio id="intro-song" src="assets/song1.mp3"></audio>
     </div>
 
-    <div class="invitation-container">
-        
-        <!-- Hero: SIN FLORES -->
-        <header class="hero-section">
-            <img src="assets/hero.png" alt="Mis XV Renata">
-        </header>
 
-        <!-- SEPARADOR 1 -->
-        <div class="floral-divider"><img src="assets/centro-floral.png" alt="Separador"></div>
+    <div id="invitacion-principal">
+        <div class="invitation-container">
+            
+            <!-- Hero Completo -->
+            <header class="hero-section animate-on-scroll">
+                <img src="assets/hero.png" alt="Mis XV Renata">
+            </header>
 
-        <section class="personal-message">
-            <p>Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.</p>
-        </section>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
 
-        <!-- SEPARADOR 2 -->
-        <div class="floral-divider"><img src="assets/centro-floral.png" alt="Separador"></div>
+            <!-- Sección de Música Dinámica -->
+            <section class="music-section animate-on-scroll">
+                <p>Mi Canción</p>
+                <button id="play-button" class="glass-btn">
+                    <!-- Ícono de Play por defecto -->
+                    <svg id="music-icon" viewBox="0 0 512 512">
+                        <path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>
+                    </svg>
+                </button>
+                <audio id="quince-song" src="assets/song2.mp3"></audio>
+            </section>
 
-        <section class="date-section">
-            <div class="date-hero">
-                <span class="day-number">07</span>
-                <span>Agosto</span>
-            </div>
-            <div class="calendar"> <!-- Calendario simplificado --> ... </div>
-            <a href="#" class="calendar-btn">AGREGAR AL CALENDARIO</a>
-        </section>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
 
-        <!-- SEPARADOR 3 -->
-        <div class="floral-divider"><img src="assets/centro-floral.png" alt="Separador"></div>
+            <section class="animate-on-scroll">
+                <p class="personal-message">
+                    Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.
+                </p>
+            </section>
 
-        <section class="family-section">
-            <h3>Mis Padres</h3>
-            <p>Camilo Pérez & Silvia Hernández</p>
-        </section>
+            <div class="divider animate-on-scroll"><span>✧</span></div>
 
-        <!-- SEPARADOR 4 -->
-        <div class="floral-divider"><img src="assets/centro-floral.png" alt="Separador"></div>
-
-        <!-- SECCIÓN DE PASES -->
-        <section class="passes-section">
-            <h3>Tus Pases</h3>
-            <select id="guest-select">
-                <option value="" disabled selected>Selecciona tu nombre...</option>
-            </select>
-            <div id="ticket-display" class="ticket-container">
-                <div class="ticket">
-                    <h4 id="ticket-name">Familia</h4>
-                    <span id="ticket-number">0</span><p>PASES</p>
+            <!-- Calendario y Fecha Rediseñados -->
+            <section class="date-section animate-on-scroll">
+                <div class="date-hero">
+                    <span class="day-name">Viernes</span>
+                    <span class="day-number">07</span>
+                    <span class="month-name">Agosto</span>
                 </div>
-            </div>
-        </section>
 
-        <!-- SEPARADOR FINAL -->
-        <div class="floral-divider"><img src="assets/centro-floral.png" alt="Separador"></div>
-        
-        <footer class="rsvp-purple-block">
-            <h3>Confirmar Asistencia</h3>
-            <input type="text" id="guest-name" class="rsvp-input" placeholder="Nombre">
-            <button class="rsvp-btn" onclick="enviarWhatsApp()">ENVIAR</button>
-        </footer>
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                    </div>
+                    <div class="calendar-days">
+                        <span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span><span class="empty-day"></span>
+                        <span>1</span><span>2</span>
+                        <span>3</span><span>4</span><span>5</span><span>6</span>
+                        <span class="calendar-highlight">07</span>
+                        <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                        <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                        <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+                        <span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
 
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+Renata&dates=20260807T210000Z/20260808T050000Z&details=¡Te+espero+para+celebrar+juntos+mis+XV+años!&location=D+Arellanos+Banquet" target="_blank" class="calendar-btn">
+                    AGREGAR AL CALENDARIO
+                </a>
+
+                <div class="countdown-title">Faltan solo...</div>
+                <div class="elegant-countdown">
+                    <div class="time-box"><span id="days">00</span><small>Días</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>Hrs</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
+                </div>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="family-section animate-on-scroll">
+                <p class="intro-fam">
+                    Mi corazón se llena de gozo al saber que Dios me ha permitido llegar a este día tan especial. Acompáñame a darle gracias.
+                </p>
+                <div>
+                    <span class="family-label">Con el amor de mis padres:</span>
+                    <p class="family-names">Camilo Pérez & Silvia Hernández</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <span class="family-label">Guiada por mis padrinos:</span>
+                    <p class="family-names">Emilio Diaz & Carolina Méndez</p>
+                </div>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="locations-section">
+                <div class="location-item animate-on-scroll">
+                    <h3>Misa</h3>
+                    <img src="assets/misa.jpg" alt="Santuario de San Benito" class="location-img">
+                    <h4>Santuario de San Benito</h4>
+                    <p>4:00 P.M</p>
+                    <a href="https://maps.google.com" class="calendar-btn" style="margin-top:10px;" target="_blank">VER UBICACIÓN</a>
+                </div>
+
+                <div class="location-item animate-on-scroll">
+                    <h3>Recepción</h3>
+                    <img src="assets/salon.jpg" alt="D' Arellanos Banquet" class="location-img">
+                    <h4>D' Arellanos Banquet</h4>
+                    <p>7:00 P.M</p>
+                    <a href="https://maps.google.com" class="calendar-btn" style="margin-top:10px;" target="_blank">VER UBICACIÓN</a>
+                </div>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="quotes-section animate-on-scroll">
+                <p>“Está vestida de fuerza y dignidad, y se ríe sin temor al futuro.”</p>
+                <p class="reference">PROVERBIOS 31:25</p>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="gifts-section animate-on-scroll">
+                <h3>Opción de Regalo</h3>
+                <p>Mi mejor regalo es compartir contigo este gran día. Si deseas obsequiarme algo, puedo sugerirte la siguiente opción:</p>
+                <svg viewBox="0 0 24 24" width="45" height="45" style="fill: #7D5BA6; margin: 15px auto; display:block; opacity: 0.8;">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <p style="font-weight: 500; color:#7D5BA6;">¡Lluvia de sobres!</p>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <section class="dress-code-section animate-on-scroll">
+                <h3>Código de Vestimenta</h3>
+                <p style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-style:italic; color:#7D5BA6;">Elegante</p>
+                
+                <img src="assets/iconos.png" alt="Iconos Código de Vestimenta" class="dress-code-img">
+                
+                <p style="font-size: 0.8rem; letter-spacing: 1px; text-transform:uppercase;">
+                    Se reserva el color lila y morado en todos sus tonos solo para la quinceañera.
+                </p>
+                
+                <div class="color-swatches">
+                    <div class="swatch lavanda"></div>
+                    <div class="swatch lila"></div>
+                    <div class="swatch glicinia"></div>
+                    <div class="swatch malva"></div>
+                    <div class="swatch amatista"></div>
+                </div>
+            </section>
+
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <!-- ----- NUEVA SECCIÓN DE PASES ----- -->
+            <section class="passes-section animate-on-scroll">
+                <h3>Tus Pases</h3>
+                <p>Busca tu nombre en la lista para consultar los pases asignados a tu familia.</p>
+                
+                <div class="select-wrapper">
+                    <select id="guest-select">
+                        <option value="" disabled selected>Selecciona tu nombre...</option>
+                        <!-- Las opciones se generarán por JavaScript -->
+                    </select>
+                    <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </div>
+
+                <div id="ticket-display" class="ticket-container">
+                    <div class="ticket">
+                        <div class="ticket-header">
+                            <h4>Boleto Virtual</h4>
+                        </div>
+                        <div class="ticket-body">
+                            <div class="ticket-name-display" id="ticket-name">Nombre de Familia</div>
+                            <div class="passes-count">
+                                <span id="ticket-number">0</span>
+                                <small>PASES</small>
+                            </div>
+                        </div>
+                        <div class="ticket-footer">
+                            <button class="wallet-btn apple" onclick="addToWallet('apple')">
+                                <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                                Agregar a Apple Wallet
+                            </button>
+                            <button class="wallet-btn google" onclick="addToWallet('google')">
+                                <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                                Agregar a Google Wallet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RSVP Elegante -->
+            <footer class="rsvp-purple-block animate-on-scroll">
+                <h3 style="font-size:2rem; font-style:italic;">Confirmar Asistencia</h3>
+                <p>Los mejores recuerdos se crean con personas especiales como ustedes. Sería un placer que nos acompañaras.</p>
+                
+                <input type="text" id="guest-name" class="rsvp-input" placeholder="Escribe tu nombre y apellidos" required>
+                <button class="rsvp-btn" onclick="enviarWhatsApp()">ENVIAR CONFIRMACIÓN</button>
+                
+                <p style="margin-top:25px; font-size:0.8rem; letter-spacing: 3px; text-transform:uppercase;">¡Te esperamos!</p>
+            </footer>
+
+        </div>
     </div>
 
     <script>
-       const video = document.getElementById('introVideo');
+        // --- 1. LÓGICA DE INTRODUCCIÓN Y SCROLL ---
+        const video = document.getElementById('introVideo');
         const overlay = document.getElementById('video-overlay');
         const introPantalla = document.getElementById('intro-pantalla');
         const actionArea = document.getElementById('intro-action-area');
         const introSong = document.getElementById('intro-song');
 
-        function habilitarScroll() { document.body.classList.remove('intro-active'); }
+        function habilitarScroll() {
+            document.body.classList.remove('intro-active');
+        }
 
         actionArea.addEventListener('click', () => {
             actionArea.style.display = 'none';
@@ -157,40 +549,49 @@
         video.onended = () => {
             overlay.style.opacity = '0';
             introSong.pause(); 
-            setTimeout(() => { overlay.style.display = 'none'; habilitarScroll(); }, 800);
+            setTimeout(() => { 
+                overlay.style.display = 'none'; 
+                habilitarScroll(); 
+            }, 800);
         };
 
+        // --- 2. LÓGICA DEL BOTÓN DE MÚSICA DINÁMICO ---
         const playBtn = document.getElementById('play-button');
         const quinceSong = document.getElementById('quince-song');
         const musicIcon = document.getElementById('music-icon');
         
+        // SVGs en variables para intercambiar
         const svgPlay = '<path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>';
         const svgPause = '<path d="M144 479H48c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48zm304 0h-96c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48z"/>';
 
         playBtn.addEventListener('click', () => {
             if (quinceSong.paused) {
                 quinceSong.play();
-                musicIcon.innerHTML = svgPause;
+                musicIcon.innerHTML = svgPause; // Cambia a icono de pausa
                 musicIcon.setAttribute("viewBox", "0 0 448 512"); 
             } else {
                 quinceSong.pause();
-                musicIcon.innerHTML = svgPlay;
+                musicIcon.innerHTML = svgPlay; // Regresa a icono de play
                 musicIcon.setAttribute("viewBox", "0 0 512 512");
             }
         });
 
+        // --- 3. ANIMACIONES AL HACER SCROLL ---
         const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+                    observer.unobserve(entry.target); // Anima solo una vez
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => { observer.observe(el); });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
 
+        // --- 4. CONFIRMACIÓN WHATSAPP ---
         function enviarWhatsApp() {
             const nombre = document.getElementById('guest-name').value.trim();
             if (nombre === "") {
@@ -198,11 +599,12 @@
                 return;
             }
             const numeroTel = "525632023012";
-            const textoMensaje = encodeURIComponent(`¡Con mucho cariño, Renata! Confirmo mi asistencia a tus XV Años. Mi nombre es: ${nombre}. ¡Allí estaré!`);
+            const textoMensaje = encodeURIComponent(`¡Hola, Renata! Confirmo mi asistencia a tus XV Años. Mi nombre es: ${nombre}. ¡Allí estaré!`);
             const urlWhatsApp = `https://wa.me/${numeroTel}?text=${textoMensaje}`;
             window.open(urlWhatsApp, '_blank');
         }
 
+        // --- 5. CUENTA REGRESIVA ---
         function actualizarCountdown() {
             const fechaObjetivo = new Date('August 7, 2026 16:00:00').getTime();
             const ahora = new Date().getTime();
@@ -223,6 +625,7 @@
         setInterval(actualizarCountdown, 1000);
         actualizarCountdown();
 
+        // --- 6. SISTEMA DE PASES DINÁMICO ---
         const listaInvitados = [
             { name: "Sr. Luis Luna & Sra, Leonor", passes: 2 },
             { name: "Sr. Luis Hugo & Gabriela", passes: 2 },
@@ -343,7 +746,7 @@
             { name: "Emma", passes: 1 },
             { name: "Guliane", passes: 1 },
             { name: "Ana Pau", passes: 1 },
-            { name: "Alexa (2)", passes: 1 }, 
+            { name: "Alexa (2)", passes: 1 }, /* Añadí (2) para diferenciar repetida */
             { name: "Ale 4", passes: 1 },
             { name: "Felipe", passes: 1 },
             { name: "Omar", passes: 1 },
@@ -366,6 +769,7 @@
             { name: "Astrid", passes: 1 }
         ];
 
+        // Llenar el select con los nombres ordenados alfabéticamente
         const guestSelect = document.getElementById('guest-select');
         
         listaInvitados.sort((a, b) => a.name.localeCompare(b.name)).forEach((invitado, index) => {
@@ -375,21 +779,26 @@
             guestSelect.appendChild(option);
         });
 
+        // Evento al seleccionar un nombre
         guestSelect.addEventListener('change', function() {
-            const selectedGuest = listaInvitados[this.value]; 
+            const selectedGuest = listaInvitados[this.value]; // Recuperamos por índice
             if (selectedGuest) {
                 document.getElementById('ticket-name').textContent = selectedGuest.name;
                 document.getElementById('ticket-number').textContent = selectedGuest.passes;
                 
                 const ticketDisplay = document.getElementById('ticket-display');
+                // Reiniciar animación apagándolo y encendiéndolo
                 ticketDisplay.style.display = 'none';
                 setTimeout(() => { ticketDisplay.style.display = 'flex'; }, 50);
                 
+                // Pre-llenar el input del RSVP para facilitarle la vida al invitado
                 document.getElementById('guest-name').value = selectedGuest.name;
             }
         });
 
+        // Acción de Botones de Wallet
         function addToWallet(type) {
+            // Nota para el dev: Aquí va el enlace de generación de tickets .pkpass o JWT
             alert(`Para integrar este boleto en ${type === 'apple' ? 'Apple Wallet' : 'Google Wallet'} necesitas un servicio generador de boletos como PassKit o Pass2U. \n\n¡Por ahora, la ficha funciona excelente como consulta visual!`);
         }
     </script>
