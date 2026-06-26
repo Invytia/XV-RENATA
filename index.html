@@ -8,7 +8,7 @@
     <!-- Fuentes ultra elegantes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         /* ----- RESET Y CONFIGURACIÓN BÁSICA ----- */
@@ -16,12 +16,12 @@
             margin: 0; padding: 0;
             overflow-x: hidden; 
             font-family: 'Montserrat', sans-serif;
-            background-color: #FAFAFA; /* Fondo base claro y elegante */
+            background-color: #FAFAFA;
             color: #4A4A4A;
         }
 
         /* ----- OVERLAY DEL VIDEO INTRO ----- */
-        body.intro-active { overflow: hidden; } /* Bloquea scroll solo al inicio */
+        body.intro-active { overflow: hidden; } 
 
         #video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -50,12 +50,52 @@
 
         /* ----- ESTRUCTURA PRINCIPAL ----- */
         .invitation-container {
+            position: relative; /* Necesario para contener las flores absolutas */
+            overflow: hidden; /* Evita scroll horizontal por las flores */
             max-width: 500px; margin: 0 auto;
             background: #FDFBF7;
             background-image: radial-gradient(circle at 50% 0%, rgba(215,196,242,0.15) 0%, transparent 50%),
                               radial-gradient(circle at 50% 100%, rgba(215,196,242,0.15) 0%, transparent 50%);
             box-shadow: 0 0 30px rgba(0,0,0,0.05);
             padding-bottom: 40px;
+        }
+
+        /* ----- ELEMENTOS FLORALES DE FONDO ----- */
+        .floral-accent {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none; /* Crucial: evita que bloqueen los clics */
+            opacity: 0.85;
+        }
+
+        .flor-esquina-top {
+            top: -20px;
+            right: -20px;
+            width: 280px;
+            transform: rotate(5deg);
+        }
+
+        .flor-centro-pases {
+            bottom: 18%; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 380px;
+            opacity: 0.5; /* Más tenue detrás del ticket */
+        }
+
+        .flor-esquina-bottom {
+            bottom: 2%;
+            left: -40px;
+            width: 250px;
+            transform: rotate(180deg);
+        }
+
+        /* Asegurar que el contenido principal flote sobre las flores */
+        .hero-section, .music-section, .date-section, .family-section, 
+        .locations-section, .quotes-section, .gifts-section, 
+        .dress-code-section, .passes-section, .rsvp-purple-block, .personal-message {
+            position: relative;
+            z-index: 1; 
         }
 
         /* Tipografía de Títulos */
@@ -81,6 +121,7 @@
         .divider {
             display: flex; align-items: center; justify-content: center;
             margin: 45px 0; opacity: 0.6;
+            position: relative; z-index: 1;
         }
         .divider::before, .divider::after {
             content: ''; width: 30%; height: 1px;
@@ -194,6 +235,87 @@
         .swatch.amatista { background-color: #9966CC; }
         .swatch.ciruela { background-color: #701C1C; }
 
+        /* ----- SISTEMA DE PASES ----- */
+        .passes-section { text-align: center; padding: 0 25px; }
+        .passes-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; margin-bottom: 25px; }
+        
+        .select-wrapper { margin-bottom: 30px; position: relative; }
+        select#guest-select {
+            width: 100%; max-width: 350px;
+            padding: 15px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #4A4A4A;
+            border: 2px solid rgba(125, 91, 166, 0.3);
+            border-radius: 30px;
+            background-color: white;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(125, 91, 166, 0.05);
+            transition: all 0.3s;
+        }
+        select#guest-select:focus { border-color: #7D5BA6; box-shadow: 0 5px 20px rgba(125, 91, 166, 0.2); }
+        .select-icon {
+            position: absolute; right: 15%; top: 50%; transform: translateY(-50%);
+            fill: #7D5BA6; pointer-events: none;
+        }
+
+        /* Estilo del Boleto/Pase */
+        .ticket-container {
+            display: none; 
+            justify-content: center;
+            margin-top: 10px;
+            animation: fadeInTicket 0.5s ease forwards;
+        }
+        @keyframes fadeInTicket { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .ticket {
+            background: linear-gradient(135deg, #7D5BA6 0%, #a283c7 100%);
+            width: 100%; max-width: 320px;
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3);
+            overflow: hidden;
+        }
+        /* Efecto de recorte lateral del ticket */
+        .ticket::before, .ticket::after {
+            content: ''; position: absolute; top: 55%;
+            width: 30px; height: 30px; background-color: #FDFBF7;
+            border-radius: 50%; transform: translateY(-50%);
+        }
+        .ticket::before { left: -15px; box-shadow: inset -3px 0 5px rgba(0,0,0,0.05); }
+        .ticket::after { right: -15px; box-shadow: inset 3px 0 5px rgba(0,0,0,0.05); }
+
+        .ticket-header {
+            padding: 20px; text-align: center; border-bottom: 2px dashed rgba(255,255,255,0.4);
+        }
+        .ticket-header h4 { color: white; font-size: 1.8rem; letter-spacing: 1px; font-style: italic; }
+        
+        .ticket-body { padding: 25px 20px; }
+        .ticket-name-display { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; }
+        
+        .passes-count {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 10px 25px; border-radius: 15px; backdrop-filter: blur(5px);
+        }
+        .passes-count span { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; line-height: 1; display: block; }
+        .passes-count small { font-size: 0.75rem; letter-spacing: 2px; }
+
+        .ticket-footer { background: rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        
+        .wallet-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 90%; padding: 12px; border-radius: 25px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; border: none; transition: transform 0.2s;
+        }
+        .wallet-btn:hover { transform: scale(1.03); }
+        .wallet-btn.apple { background-color: #000; color: white; }
+        .wallet-btn.google { background-color: #fff; color: #3c4043; border: 1px solid #dadce0; }
+        .wallet-btn svg { width: 18px; height: 18px; }
+
         /* ----- RSVP (CONFIRMACIÓN ELEGANTE) ----- */
         .rsvp-purple-block {
             background: linear-gradient(135deg, #7D5BA6 0%, #5E4182 100%);
@@ -236,9 +358,14 @@
         <audio id="intro-song" src="assets/song1.mp3"></audio>
     </div>
 
-
     <div id="invitacion-principal">
         <div class="invitation-container">
+            
+            <!-- ELEMENTOS FLORALES FLOTANTES -->
+            <!-- Asegúrate de tener estas imágenes exportadas en PNG sin fondo -->
+            <img src="assets/esquina-floral.png" alt="" class="floral-accent flor-esquina-top">
+            <img src="assets/centro-floral.png" alt="" class="floral-accent flor-centro-pases">
+            <img src="assets/esquina-floral.png" alt="" class="floral-accent flor-esquina-bottom">
             
             <!-- Hero Completo -->
             <header class="hero-section animate-on-scroll">
@@ -251,7 +378,6 @@
             <section class="music-section animate-on-scroll">
                 <p>Mi Canción</p>
                 <button id="play-button" class="glass-btn">
-                    <!-- Ícono de Play por defecto -->
                     <svg id="music-icon" viewBox="0 0 512 512">
                         <path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>
                     </svg>
@@ -261,18 +387,16 @@
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <section class="animate-on-scroll">
-                <p class="personal-message">
+            <section class="animate-on-scroll personal-message">
+                <p>
                     Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.
                 </p>
             </section>
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <!-- Calendario y Fecha Rediseñados -->
+            <!-- Calendario y Fecha -->
             <section class="date-section animate-on-scroll">
-                
-                <!-- La fecha arriba en tamaño monumental -->
                 <div class="date-hero">
                     <span class="day-name">Viernes</span>
                     <span class="day-number">07</span>
@@ -299,7 +423,6 @@
                     AGREGAR AL CALENDARIO
                 </a>
 
-                <!-- Cuenta atrás rediseñada en cristales -->
                 <div class="countdown-title">Faltan solo...</div>
                 <div class="elegant-countdown">
                     <div class="time-box"><span id="days">00</span><small>Días</small></div>
@@ -384,6 +507,49 @@
                 </div>
             </section>
 
+            <div class="divider animate-on-scroll"><span>✧</span></div>
+
+            <!-- SECCIÓN DE PASES -->
+            <section class="passes-section animate-on-scroll">
+                <h3>Tus Pases</h3>
+                <p>Busca tu nombre en la lista para consultar los pases asignados a tu familia.</p>
+                
+                <div class="select-wrapper">
+                    <select id="guest-select">
+                        <option value="" disabled selected>Selecciona tu nombre...</option>
+                        <!-- Las opciones se generarán por JavaScript -->
+                    </select>
+                    <svg class="select-icon" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </div>
+
+                <div id="ticket-display" class="ticket-container">
+                    <div class="ticket">
+                        <div class="ticket-header">
+                            <h4>Boleto Virtual</h4>
+                        </div>
+                        <div class="ticket-body">
+                            <div class="ticket-name-display" id="ticket-name">Nombre de Familia</div>
+                            <div class="passes-count">
+                                <span id="ticket-number">0</span>
+                                <small>PASES</small>
+                            </div>
+                        </div>
+                        <div class="ticket-footer">
+                            <button class="wallet-btn apple" onclick="addToWallet('apple')">
+                                <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                                Agregar a Apple Wallet
+                            </button>
+                            <button class="wallet-btn google" onclick="addToWallet('google')">
+                                <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                                Agregar a Google Wallet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- RSVP Elegante -->
             <footer class="rsvp-purple-block animate-on-scroll">
                 <h3 style="font-size:2rem; font-style:italic;">Confirmar Asistencia</h3>
@@ -439,19 +605,17 @@
         const quinceSong = document.getElementById('quince-song');
         const musicIcon = document.getElementById('music-icon');
         
-        // SVGs en variables para intercambiar
         const svgPlay = '<path d="M112 111v290c0 17 19 28 35 19l242-145c16-9 16-31 0-40L147 92c-16-9-35 2-35 19z"/>';
         const svgPause = '<path d="M144 479H48c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48zm304 0h-96c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v350c0 26.5-21.5 48-48 48z"/>';
 
         playBtn.addEventListener('click', () => {
             if (quinceSong.paused) {
                 quinceSong.play();
-                musicIcon.innerHTML = svgPause; // Cambia a icono de pausa
-                // Opcional: Ajustar viewBox porque el icono de pausa es ligeramente diferente
+                musicIcon.innerHTML = svgPause;
                 musicIcon.setAttribute("viewBox", "0 0 448 512"); 
             } else {
                 quinceSong.pause();
-                musicIcon.innerHTML = svgPlay; // Regresa a icono de play
+                musicIcon.innerHTML = svgPlay;
                 musicIcon.setAttribute("viewBox", "0 0 512 512");
             }
         });
@@ -462,7 +626,7 @@
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Anima solo una vez
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -479,7 +643,8 @@
                 return;
             }
             const numeroTel = "525632023012";
-            const textoMensaje = encodeURIComponent(`¡Hola, Renata! Confirmo mi asistencia a tus XV Años. Mi nombre es: ${nombre}. ¡Allí estaré!`);
+            // Mensaje actualizado para sonar más personal y evitar el clásico y repetitivo "hola"
+            const textoMensaje = encodeURIComponent(`¡Con mucho cariño, Renata! Confirmo mi asistencia a tus XV Años. Mi nombre es: ${nombre}. ¡Allí estaré!`);
             const urlWhatsApp = `https://wa.me/${numeroTel}?text=${textoMensaje}`;
             window.open(urlWhatsApp, '_blank');
         }
@@ -504,6 +669,177 @@
         }
         setInterval(actualizarCountdown, 1000);
         actualizarCountdown();
+
+        // --- 6. SISTEMA DE PASES DINÁMICO ---
+        const listaInvitados = [
+            { name: "Sr. Luis Luna & Sra, Leonor", passes: 2 },
+            { name: "Sr. Luis Hugo & Gabriela", passes: 2 },
+            { name: "Sr. Rodolfo & Sra. Veronica + Julian", passes: 3 },
+            { name: "Josue & Melisa", passes: 2 },
+            { name: "Joseph & Sofia", passes: 2 },
+            { name: "Marjorie Jane", passes: 1 },
+            { name: "Sr. Ignacio López & Sra. Carmela López", passes: 2 },
+            { name: "Sr. Jorge López", passes: 1 },
+            { name: "Sra. Maria Elena López", passes: 1 },
+            { name: "Sr. Ezequiel Magos & Sra. Gloria López", passes: 2 },
+            { name: "Eliza Magos", passes: 1 },
+            { name: "Sr. Jesús López & Sra. Sonia", passes: 2 },
+            { name: "Sra. Sonia López + Fabian y Fabiola", passes: 3 },
+            { name: "Sr. Daniel & Sra. Mariana + Marianita", passes: 3 },
+            { name: "Sr. Rodolfo López & Sra. Mariana + Pierina", passes: 3 },
+            { name: "Sr. Eloy & Sra. Mari Carmen + Sofi", passes: 3 },
+            { name: "Sr. Antonio Luna & Sra. Norma Rangel", passes: 2 },
+            { name: "Sr. Edgardo Luna & Sra. Leticia", passes: 2 },
+            { name: "Sr. Emilio Luna & Sra. Judith Barranco", passes: 2 },
+            { name: "Sr. Mauricio & Sra. Judith", passes: 2 },
+            { name: "Sra. Maria Luna", passes: 1 },
+            { name: "Sra. Blanca Luna", passes: 1 },
+            { name: "Natan", passes: 1 },
+            { name: "Sra. Lourdes Luna + Ulises", passes: 2 },
+            { name: "Sr. Antonio Banderas & Sra. Joselyn", passes: 2 },
+            { name: "Sr. Francisco & Sra. Cony", passes: 2 },
+            { name: "Sra. Laura", passes: 1 },
+            { name: "Sr. Alfonso Velasco & Sra. Cony Hérnandez", passes: 2 },
+            { name: "Ariadna", passes: 1 },
+            { name: "Sr. Israel Velasco & Sra. Karla Mier + Cami", passes: 3 },
+            { name: "Guillermo & Ximena", passes: 2 },
+            { name: "Sr. Erick Velasco & Sra. Karina + Emi", passes: 3 },
+            { name: "Sra. Dolores & Carlos", passes: 2 },
+            { name: "Srita. Amayrani", passes: 2 },
+            { name: "Srita Nicole", passes: 1 },
+            { name: "Sr. Daniel & Sra. Magda", passes: 2 },
+            { name: "Axel & Denisse", passes: 2 },
+            { name: "Srita. Mayte + 1", passes: 2 },
+            { name: "Sr. Mauricio & Sra. Esposa + Abril", passes: 3 },
+            { name: "Sr. Marcelino & Sra. Ivone + Angel + Emily", passes: 4 },
+            { name: "Srita Johnada", passes: 2 },
+            { name: "Srita. Nataly", passes: 2 },
+            { name: "Sr. Gerardo Guevara", passes: 1 },
+            { name: "Sr. Carlos & Sra. Rebeca + Barbara", passes: 3 },
+            { name: "Sr. Arturo & Sra. Wendy + Fer", passes: 3 },
+            { name: "Sr. Alberto & Sra. Juliana + Ana Sofi + Romi", passes: 4 },
+            { name: "Sr. Carlos & Sra. Teresa + Aylen + Enia", passes: 4 },
+            { name: "Sr. Andres & Sra. Anahi", passes: 2 },
+            { name: "Sr. Humberto & Sra. Jacky + Mati + Emi + Le", passes: 5 },
+            { name: "Sr. Mauro & Sra. Steffany + Sheccid", passes: 3 },
+            { name: "Sra. Alejandra Carvajal", passes: 1 },
+            { name: "Sr. Juan Pablo + Sra. Karla", passes: 2 },
+            { name: "Gricel Reyes", passes: 2 },
+            { name: "Srita Samantha", passes: 1 },
+            { name: "Srita. Nahlu", passes: 1 },
+            { name: "Sr. Cesar Bazan + Sra. Ma. Fernanda", passes: 2 },
+            { name: "Sr. Raúl", passes: 1 },
+            { name: "Sr. Antonio", passes: 1 },
+            { name: "Mike", passes: 1 },
+            { name: "Sr. Victor & Sra. Cristina", passes: 2 },
+            { name: "Diego Pacheco", passes: 1 },
+            { name: "Sr. Gabriel & Sra. Yenni", passes: 2 },
+            { name: "Jesús Gabriel & Tamara", passes: 2 },
+            { name: "Majo", passes: 2 },
+            { name: "Sra. Monse", passes: 2 },
+            { name: "Ma fer Tepoz", passes: 1 },
+            { name: "Sr. Alejandro Mendelesio", passes: 2 },
+            { name: "Sr. Victor Casanova", passes: 2 },
+            { name: "Rebeca", passes: 1 },
+            { name: "Leslie", passes: 1 },
+            { name: "Sofia Pimentel", passes: 1 },
+            { name: "Paulina Moran", passes: 1 },
+            { name: "Malenka", passes: 1 },
+            { name: "Aylin", passes: 1 },
+            { name: "Karen", passes: 1 },
+            { name: "Fanny", passes: 1 },
+            { name: "Renata Gonzalez", passes: 1 },
+            { name: "Fer Fuentes", passes: 1 },
+            { name: "Fernanda Gutierrez", passes: 1 },
+            { name: "Eloisa", passes: 1 },
+            { name: "Dafne", passes: 1 },
+            { name: "Sabine", passes: 1 },
+            { name: "Nat Zuñiga", passes: 1 },
+            { name: "Pablo", passes: 1 },
+            { name: "Nahomi", passes: 1 },
+            { name: "Pau Corona", passes: 1 },
+            { name: "Dani Fonk", passes: 1 },
+            { name: "Santi Jimenez", passes: 1 },
+            { name: "Alonso", passes: 1 },
+            { name: "lan Cano", passes: 1 },
+            { name: "Uzziel", passes: 1 },
+            { name: "Santiago Meza", passes: 1 },
+            { name: "Mariano Corona", passes: 1 },
+            { name: "Sebastian Gargoyo", passes: 1 },
+            { name: "Mateo Guerrero", passes: 1 },
+            { name: "Irving", passes: 1 },
+            { name: "Luca", passes: 1 },
+            { name: "Iker", passes: 1 },
+            { name: "Joshua", passes: 1 },
+            { name: "Santiago Menchaca", passes: 1 },
+            { name: "Arturo", passes: 1 },
+            { name: "Santiago Delhumeau", passes: 1 },
+            { name: "Fifi", passes: 1 },
+            { name: "Sofi Cardenas", passes: 1 },
+            { name: "Sofi Ornelas", passes: 1 },
+            { name: "Frida", passes: 1 },
+            { name: "Ale", passes: 1 },
+            { name: "Dany", passes: 1 },
+            { name: "Kenia", passes: 1 },
+            { name: "Romi", passes: 1 },
+            { name: "Camila", passes: 1 },
+            { name: "Alexa", passes: 1 },
+            { name: "Pollet", passes: 1 },
+            { name: "Isa", passes: 1 },
+            { name: "Abby", passes: 1 },
+            { name: "Naty", passes: 1 },
+            { name: "Emma", passes: 1 },
+            { name: "Guliane", passes: 1 },
+            { name: "Ana Pau", passes: 1 },
+            { name: "Alexa (2)", passes: 1 }, 
+            { name: "Ale 4", passes: 1 },
+            { name: "Felipe", passes: 1 },
+            { name: "Omar", passes: 1 },
+            { name: "Nico", passes: 1 },
+            { name: "Charro", passes: 1 },
+            { name: "Torra", passes: 1 },
+            { name: "Brady", passes: 1 },
+            { name: "lan Trejo", passes: 1 },
+            { name: "Alfonso C.", passes: 1 },
+            { name: "Rodo Torra", passes: 1 },
+            { name: "Oleg", passes: 1 },
+            { name: "Dasha", passes: 1 },
+            { name: "Jessi", passes: 1 },
+            { name: "Miri", passes: 1 },
+            { name: "Britanny", passes: 1 },
+            { name: "Yohana", passes: 1 },
+            { name: "Ximenita", passes: 1 },
+            { name: "Pau Renata", passes: 1 },
+            { name: "Andy", passes: 1 },
+            { name: "Astrid", passes: 1 }
+        ];
+
+        const guestSelect = document.getElementById('guest-select');
+        
+        listaInvitados.sort((a, b) => a.name.localeCompare(b.name)).forEach((invitado, index) => {
+            let option = document.createElement('option');
+            option.value = index;
+            option.textContent = invitado.name;
+            guestSelect.appendChild(option);
+        });
+
+        guestSelect.addEventListener('change', function() {
+            const selectedGuest = listaInvitados[this.value]; 
+            if (selectedGuest) {
+                document.getElementById('ticket-name').textContent = selectedGuest.name;
+                document.getElementById('ticket-number').textContent = selectedGuest.passes;
+                
+                const ticketDisplay = document.getElementById('ticket-display');
+                ticketDisplay.style.display = 'none';
+                setTimeout(() => { ticketDisplay.style.display = 'flex'; }, 50);
+                
+                document.getElementById('guest-name').value = selectedGuest.name;
+            }
+        });
+
+        function addToWallet(type) {
+            alert(`Para integrar este boleto en ${type === 'apple' ? 'Apple Wallet' : 'Google Wallet'} necesitas un servicio generador de boletos como PassKit o Pass2U. \n\n¡Por ahora, la ficha funciona excelente como consulta visual!`);
+        }
     </script>
 </body>
 </html>
