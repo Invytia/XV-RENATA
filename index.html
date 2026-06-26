@@ -59,9 +59,9 @@
         }
 
         /* ----- DESTELLOS MORADOS AMBIENTALES ----- */
-        .glow-1 { position: absolute; top: 15%; left: -20%; width: 350px; height: 350px; background: rgba(125, 91, 166, 0.25); filter: blur(80px); z-index: 0; pointer-events: none; }
-        .glow-2 { position: absolute; top: 45%; right: -25%; width: 400px; height: 400px; background: rgba(201, 160, 220, 0.2); filter: blur(90px); z-index: 0; pointer-events: none; }
-        .glow-3 { position: absolute; bottom: 10%; left: -10%; width: 300px; height: 300px; background: rgba(125, 91, 166, 0.25); filter: blur(70px); z-index: 0; pointer-events: none; }
+        .glow-1 { position: absolute; top: 10%; left: -20%; width: 350px; height: 350px; background: rgba(125, 91, 166, 0.2); filter: blur(80px); z-index: 0; pointer-events: none; }
+        .glow-2 { position: absolute; top: 50%; right: -25%; width: 400px; height: 400px; background: rgba(201, 160, 220, 0.15); filter: blur(90px); z-index: 0; pointer-events: none; }
+        .glow-3 { position: absolute; bottom: 15%; left: -10%; width: 300px; height: 300px; background: rgba(125, 91, 166, 0.2); filter: blur(70px); z-index: 0; pointer-events: none; }
 
         /* ----- BRILLOS ANIMADOS (ESTRELLAS) ----- */
         .sparkles-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
@@ -71,34 +71,42 @@
         .star:nth-child(3) { top: 48%; left: 8%; width: 5px; height: 5px; animation-delay: 2.5s; }
         .star:nth-child(4) { top: 68%; right: 12%; width: 4px; height: 4px; animation-delay: 0.8s; }
         .star:nth-child(5) { top: 85%; left: 20%; width: 3px; height: 3px; animation-delay: 1.8s; }
-        .star:nth-child(6) { top: 95%; right: 25%; width: 4px; height: 4px; animation-delay: 0.3s; }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* ----- ELEMENTOS FLORALES DE FONDO ----- */
-        .floral-decorator {
+        /* ----- SISTEMA FLORAL CORREGIDO ----- */
+        /* Las secciones ahora controlan a sus propias flores */
+        .section-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bg-floral {
             position: absolute;
             z-index: 0;
             pointer-events: none;
-            mix-blend-mode: multiply; /* Fusión perfecta tipo acuarela en el fondo */
-            opacity: 0.85;
         }
-        /* Distribución fuera del hero */
-        .f1 { top: 17%; right: -30px; width: 220px; transform: rotate(10deg); }
-        .f2 { top: 35%; left: -40px; width: 250px; transform: rotate(-25deg); }
-        .f3 { top: 55%; left: 50%; transform: translateX(-50%); width: 350px; opacity: 0.6; } /* centro-floral.png */
-        .f4 { top: 73%; right: -50px; width: 210px; transform: rotate(15deg); }
-        .f5 { bottom: 3%; left: -30px; width: 230px; transform: rotate(-10deg); }
 
-        /* ----- CONTENIDO POR ENCIMA DE LOS EFECTOS ----- */
-        .hero-section, .music-section, .date-section, .family-section, 
-        .locations-section, .quotes-section, .gifts-section, 
-        .dress-code-section, .passes-section, .rsvp-purple-block, .personal-message, .divider {
+        /* Modificadores de posición florales */
+        .f-top-right { top: -40px; right: -70px; width: 220px; transform: rotate(15deg); opacity: 0.4; }
+        .f-bottom-left { bottom: -40px; left: -70px; width: 220px; transform: rotate(195deg); opacity: 0.4; }
+        .f-center-watermark { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 380px; opacity: 0.12; }
+
+        /* ----- GLASSMORPHISM PANEL PARA TEXTOS ----- */
+        .glass-text-panel {
+            background: rgba(253, 251, 247, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin: 0 15px;
             position: relative;
-            z-index: 1; 
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow: 0 8px 32px rgba(125, 91, 166, 0.05);
         }
 
         /* Tipografía de Títulos */
@@ -106,6 +114,7 @@
         h3 { font-size: 1.8rem; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
 
         /* ----- HERO SECTION ----- */
+        .hero-section { position: relative; z-index: 2; }
         .hero-section img {
             width: 100%; height: auto; display: block;
             border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
@@ -113,7 +122,7 @@
         }
 
         /* ----- SEPARADOR ELEGANTE ----- */
-        .divider { display: flex; align-items: center; justify-content: center; margin: 45px 0; opacity: 0.6; }
+        .divider { display: flex; align-items: center; justify-content: center; margin: 45px 0; opacity: 0.6; position: relative; z-index: 2;}
         .divider::before, .divider::after { content: ''; width: 30%; height: 1px; background: linear-gradient(to right, transparent, #7D5BA6, transparent); }
         .divider span { color: #7D5BA6; margin: 0 15px; font-size: 1.2rem; }
 
@@ -122,7 +131,7 @@
         .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
         /* ----- SECCIÓN MÚSICA ----- */
-        .music-section { text-align: center; padding: 10px 20px; }
+        .music-section { text-align: center; padding: 10px 20px; position: relative; z-index: 2;}
         .music-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #7D5BA6; margin-bottom: 15px;}
         .glass-btn {
             background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -134,16 +143,17 @@
         .glass-btn svg { width: 28px; height: 28px; fill: #7D5BA6; transition: all 0.3s; }
 
         /* ----- MENSAJE PERSONAL ----- */
-        .personal-message { text-align: center; padding: 0 35px; font-size: 0.95rem; line-height: 1.8; color: #555; font-weight: 300; letter-spacing: 0.5px; }
+        .personal-message { text-align: center; font-size: 0.95rem; line-height: 1.8; color: #555; font-weight: 300; letter-spacing: 0.5px; }
 
         /* ----- FECHA Y CALENDARIO ----- */
         .date-section { text-align: center; padding: 0 20px; }
-        .date-hero { margin-bottom: 25px; }
+        .date-hero { margin-bottom: 25px; position: relative; z-index: 2;}
         .date-hero .day-name { display: block; font-family: 'Montserrat', sans-serif; font-size: 1rem; letter-spacing: 4px; color: #888; text-transform: uppercase; }
         .date-hero .day-number { display: block; font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; color: #7D5BA6; line-height: 1; margin: 5px 0; }
         .date-hero .month-name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; }
 
         .calendar {
+            position: relative; z-index: 2;
             background: white; border-radius: 15px; padding: 25px;
             box-shadow: 0 10px 30px rgba(125, 91, 166, 0.08); margin: 0 auto 25px auto; max-width: 320px;
             border: 1px solid rgba(125, 91, 166, 0.1);
@@ -155,6 +165,7 @@
         .calendar-days .empty-day { visibility: hidden; }
 
         .calendar-btn {
+            position: relative; z-index: 2;
             display: inline-block; background-color: transparent; color: #7D5BA6;
             border: 1px solid #7D5BA6; padding: 12px 25px; border-radius: 30px;
             text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; transition: all 0.3s;
@@ -162,8 +173,8 @@
         .calendar-btn:hover { background-color: #7D5BA6; color: white; box-shadow: 0 5px 15px rgba(125, 91, 166, 0.3); }
 
         /* ----- CUENTA REGRESIVA DINÁMICA ----- */
-        .countdown-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #7D5BA6; margin-top: 40px; font-style: italic; }
-        .elegant-countdown { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
+        .countdown-title { position: relative; z-index: 2; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #7D5BA6; margin-top: 40px; font-style: italic; }
+        .elegant-countdown { position: relative; z-index: 2; display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
         .time-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             width: 75px; height: 85px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -173,28 +184,29 @@
         .time-box small { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 6px; }
 
         /* ----- FAMILIA ----- */
-        .family-section { text-align: center; padding: 0 25px; }
+        .family-section { text-align: center; }
         .family-section p.intro-fam { font-size: 0.9rem; line-height: 1.8; color: #555; margin-bottom: 30px; font-weight: 300;}
         .family-label { font-size: 0.75rem; letter-spacing: 2px; color: #999; text-transform: uppercase; }
         .family-names { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: #7D5BA6; margin: 5px 0 25px 0; font-weight: 600;}
 
         /* ----- UBICACIONES ----- */
         .locations-section { text-align: center; padding: 0 20px; }
-        .location-item { margin-bottom: 40px; }
-        .location-img { width: 100%; max-width: 320px; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .location-item { margin-bottom: 40px; position: relative; z-index: 2;}
+        .location-img { width: 100%; max-width: 320px; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background-color: #E6E6FA; /* Placeholder color si no carga la imagen */ }
         .location-item h4 { font-size: 2.2rem; font-style: italic; margin-bottom: 5px; }
         .location-item p { margin: 3px 0; font-size: 0.9rem; color: #555; letter-spacing: 1px; }
         
         /* ----- VERSÍCULO / FRASE ----- */
-        .quotes-section { text-align: center; padding: 0 35px; }
+        .quotes-section { text-align: center; padding: 0 35px; position: relative; z-index: 2;}
         .quotes-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #7D5BA6; line-height: 1.4; }
         .quotes-section .reference { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-style: normal; letter-spacing: 2px; color: #888; margin-top: 15px; }
 
         /* ----- REGALO Y CÓDIGO DE VESTIMENTA ----- */
-        .gifts-section, .dress-code-section { text-align: center; padding: 0 25px; }
-        .gifts-section p, .dress-code-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; }
-        .dress-code-img { max-width: 250px; margin: 20px auto; display: block; }
-        .color-swatches { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .gifts-section { text-align: center; padding: 0 25px; position: relative; z-index: 2;}
+        .dress-code-section { text-align: center; padding: 0 25px; }
+        .gifts-section p, .dress-code-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; position: relative; z-index: 2;}
+        .dress-code-img { max-width: 250px; margin: 20px auto; display: block; position: relative; z-index: 2;}
+        .color-swatches { display: flex; justify-content: center; gap: 12px; margin: 20px 0; position: relative; z-index: 2;}
         .swatch { width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); border: 2px solid white; }
         .swatch.lavanda { background-color: #E6E6FA; }
         .swatch.lila { background-color: #C8A2C8; }
@@ -204,9 +216,9 @@
 
         /* ----- SISTEMA DE PASES ----- */
         .passes-section { text-align: center; padding: 0 25px; }
-        .passes-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; margin-bottom: 25px; }
+        .passes-section p { font-size: 0.9rem; line-height: 1.6; color: #555; font-weight: 300; margin-bottom: 25px; position: relative; z-index: 2;}
         
-        .select-wrapper { margin-bottom: 30px; position: relative; }
+        .select-wrapper { margin-bottom: 30px; position: relative; z-index: 2;}
         select#guest-select {
             width: 100%; max-width: 350px; padding: 15px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: #4A4A4A;
             border: 2px solid rgba(125, 91, 166, 0.3); border-radius: 30px; background-color: white; appearance: none; outline: none; cursor: pointer;
@@ -215,7 +227,7 @@
         select#guest-select:focus { border-color: #7D5BA6; box-shadow: 0 5px 20px rgba(125, 91, 166, 0.2); }
         .select-icon { position: absolute; right: 15%; top: 50%; transform: translateY(-50%); fill: #7D5BA6; pointer-events: none; }
 
-        .ticket-container { display: none; justify-content: center; margin-top: 10px; animation: fadeInTicket 0.5s ease forwards; }
+        .ticket-container { display: none; justify-content: center; margin-top: 10px; animation: fadeInTicket 0.5s ease forwards; position: relative; z-index: 2;}
         @keyframes fadeInTicket { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .ticket {
@@ -249,7 +261,7 @@
         /* ----- RSVP (CONFIRMACIÓN ELEGANTE) ----- */
         .rsvp-purple-block {
             background: linear-gradient(135deg, #7D5BA6 0%, #5E4182 100%); color: white; padding: 40px 25px; border-radius: 20px;
-            margin: 40px 20px 20px 20px; text-align: center; box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3);
+            margin: 40px 20px 20px 20px; text-align: center; box-shadow: 0 15px 35px rgba(125, 91, 166, 0.3); position: relative; z-index: 2;
         }
         .rsvp-purple-block h3 { color: white; margin-bottom: 15px; }
         .rsvp-purple-block p { font-size: 0.9rem; line-height: 1.6; font-weight: 300; opacity: 0.9; }
@@ -283,7 +295,7 @@
     <div id="invitacion-principal">
         <div class="invitation-container">
             
-            <!-- CAPA 1: DESTELLOS AMBIENTALES Y BRILLOS -->
+            <!-- CAPA 1: DESTELLOS AMBIENTALES Y BRILLOS GLOBALES -->
             <div class="glow-1"></div>
             <div class="glow-2"></div>
             <div class="glow-3"></div>
@@ -294,26 +306,16 @@
                 <div class="star"></div>
                 <div class="star"></div>
                 <div class="star"></div>
-                <div class="star"></div>
             </div>
-
-            <!-- CAPA 2: FLORES DISTRIBUIDAS ESTRATÉGICAMENTE (FUERA DEL HERO) -->
-            <img src="assets/esquina-floral.png" alt="" class="floral-decorator f1">
-            <img src="assets/esquina-floral.png" alt="" class="floral-decorator f2">
-            <img src="assets/centro-floral.png" alt="" class="floral-decorator f3">
-            <img src="assets/esquina-floral.png" alt="" class="floral-decorator f4">
-            <img src="assets/esquina-floral.png" alt="" class="floral-decorator f5">
             
-            <!-- CAPA 3: CONTENIDO PRINCIPAL -->
-            
-            <!-- Hero Completo (Limpio) -->
+            <!-- Hero Completo (Limpio, sin flores encima) -->
             <header class="hero-section animate-on-scroll">
                 <img src="assets/hero.png" alt="Mis XV Renata">
             </header>
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <!-- Sección de Música Dinámica -->
+            <!-- Sección de Música -->
             <section class="music-section animate-on-scroll">
                 <p>Mi Canción</p>
                 <button id="play-button" class="glass-btn">
@@ -326,16 +328,23 @@
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <section class="animate-on-scroll personal-message">
-                <p>
-                    Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.
-                </p>
+            <!-- SECCIÓN 1 CON FLOR ANCLADA: Mensaje Personal -->
+            <section class="section-wrapper animate-on-scroll">
+                <img src="assets/esquina-floral.png" alt="" class="bg-floral f-top-right">
+                
+                <div class="glass-text-panel personal-message">
+                    <p>
+                        Después de tantos sueños e ilusiones, por fin ha llegado el día que tanto he esperado... Mis XV años, y me encantaría compartir este momento tan especial contigo.
+                    </p>
+                </div>
             </section>
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <!-- Calendario y Fecha -->
-            <section class="date-section animate-on-scroll">
+            <!-- SECCIÓN 2 CON FLOR ANCLADA: Calendario y Fecha -->
+            <section class="section-wrapper date-section animate-on-scroll">
+                <img src="assets/centro-floral.png" alt="" class="bg-floral f-center-watermark">
+                
                 <div class="date-hero">
                     <span class="day-name">Viernes</span>
                     <span class="day-number">07</span>
@@ -373,23 +382,31 @@
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <section class="family-section animate-on-scroll">
-                <p class="intro-fam">
-                    Mi corazón se llena de gozo al saber que Dios me ha permitido llegar a este día tan especial. Acompáñame a darle gracias.
-                </p>
-                <div>
-                    <span class="family-label">Con el amor de mis padres:</span>
-                    <p class="family-names">Camilo Pérez & Silvia Hernández</p>
-                </div>
-                <div style="margin-top: 30px;">
-                    <span class="family-label">Guiada por mis padrinos:</span>
-                    <p class="family-names">Emilio Diaz & Carolina Méndez</p>
+            <!-- SECCIÓN 3 CON FLOR ANCLADA: Familia -->
+            <section class="section-wrapper family-section animate-on-scroll">
+                <img src="assets/esquina-floral.png" alt="" class="bg-floral f-bottom-left">
+                
+                <div class="glass-text-panel">
+                    <p class="intro-fam">
+                        Mi corazón se llena de gozo al saber que Dios me ha permitido llegar a este día tan especial. Acompáñame a darle gracias.
+                    </p>
+                    <div>
+                        <span class="family-label">Con el amor de mis padres:</span>
+                        <p class="family-names">Camilo Pérez & Silvia Hernández</p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <span class="family-label">Guiada por mis padrinos:</span>
+                        <p class="family-names">Emilio Diaz & Carolina Méndez</p>
+                    </div>
                 </div>
             </section>
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <section class="locations-section">
+            <!-- SECCIÓN 4 CON FLOR ANCLADA: Ubicaciones -->
+            <section class="section-wrapper locations-section">
+                <img src="assets/centro-floral.png" alt="" class="bg-floral f-center-watermark">
+                
                 <div class="location-item animate-on-scroll">
                     <h3>Misa</h3>
                     <img src="assets/misa.jpg" alt="Santuario de San Benito" class="location-img">
@@ -419,7 +436,7 @@
             <section class="gifts-section animate-on-scroll">
                 <h3>Opción de Regalo</h3>
                 <p>Mi mejor regalo es compartir contigo este gran día. Si deseas obsequiarme algo, puedo sugerirte la siguiente opción:</p>
-                <svg viewBox="0 0 24 24" width="45" height="45" style="fill: #7D5BA6; margin: 15px auto; display:block; opacity: 0.8;">
+                <svg viewBox="0 0 24 24" width="45" height="45" style="fill: #7D5BA6; margin: 15px auto; display:block; opacity: 0.8; position: relative; z-index: 2;">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 <p style="font-weight: 500; color:#7D5BA6;">¡Lluvia de sobres!</p>
@@ -427,7 +444,10 @@
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <section class="dress-code-section animate-on-scroll">
+            <!-- SECCIÓN 5 CON FLOR ANCLADA: Dress Code -->
+            <section class="section-wrapper dress-code-section animate-on-scroll">
+                <img src="assets/esquina-floral.png" alt="" class="bg-floral f-top-right">
+                
                 <h3>Código de Vestimenta</h3>
                 <p style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-style:italic; color:#7D5BA6;">Elegante</p>
                 <img src="assets/iconos.png" alt="Iconos Código de Vestimenta" class="dress-code-img">
@@ -446,8 +466,10 @@
 
             <div class="divider animate-on-scroll"><span>✧</span></div>
 
-            <!-- SECCIÓN DE PASES -->
-            <section class="passes-section animate-on-scroll">
+            <!-- SECCIÓN 6 CON FLOR ANCLADA: Pases -->
+            <section class="section-wrapper passes-section animate-on-scroll">
+                <img src="assets/centro-floral.png" alt="" class="bg-floral f-center-watermark">
+                
                 <h3>Tus Pases</h3>
                 <p>Busca tu nombre en la lista para consultar los pases asignados a tu familia.</p>
                 
